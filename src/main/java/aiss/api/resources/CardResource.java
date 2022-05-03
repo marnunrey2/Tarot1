@@ -2,7 +2,6 @@ package aiss.api.resources;
 
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -24,8 +23,6 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.jboss.resteasy.spi.BadRequestException;
 import org.jboss.resteasy.spi.NotFoundException;
-import org.restlet.resource.ClientResource;
-import org.restlet.resource.ResourceException;
 
 import aiss.api.resources.comparators.ComparatorReversed;
 import aiss.api.resources.comparators.ComparatorReversedReversed;
@@ -41,7 +38,7 @@ import aiss.model.repository.SpreadRepository;
 public class CardResource {
 
 	public static CardResource _instance=null;
-	SpreadRepository repository;
+	static SpreadRepository repository;
 	
 	private CardResource(){
 		repository=MapSpreadRepository.getInstance();
@@ -53,6 +50,7 @@ public class CardResource {
 			_instance=new CardResource();
 		return _instance; 
 	}
+	
 	
 	@GET
     @Produces("application/json")
@@ -101,26 +99,26 @@ public class CardResource {
 	@Produces("application/json")
 	public Card get(@PathParam("id") String cardId)
 	{
-		Card song = repository.getCard(cardId);
+		Card card = repository.getCard(cardId);
 		
-		if (song == null) {
+		if (card == null) {
 			throw new NotFoundException("The card with id="+ cardId +" was not found");			
 		}
 		
-		return song;
+		return card;
 	}
 	
 	@POST
 	@Consumes("application/json")
 	@Produces("application/json")
-	public Response addSong(@Context UriInfo uriInfo, Card card) {
+	public Response addCard(@Context UriInfo uriInfo, Card card) {
 		
 		if (card.getName() == null || "".equals(card.getName()))
 			throw new BadRequestException("The name of the card must not be null");
 
-		repository.addSong(card);
+		repository.addCard(card);
 
-		// Builds the response. Returns the song's uri the has just been added.
+		// Builds the response. Returns the Card's uri the has just been added.
 		UriBuilder ub = uriInfo.getAbsolutePathBuilder().path(this.getClass(), "get");
 		URI uri = ub.build(card.getId());
 		ResponseBuilder resp = Response.created(uri);
@@ -132,7 +130,7 @@ public class CardResource {
 	
 	@PUT
 	@Consumes("application/json")
-	public Response updateSong(Card card) {
+	public Response updateCard(Card card) {
 		Card oldCard = repository.getCard(card.getId());
 		if (oldCard == null) {
 			throw new NotFoundException("The card with id="+ card.getId() +" was not found");			
@@ -162,13 +160,13 @@ public class CardResource {
 	
 	@DELETE
 	@Path("/{id}")
-	public Response removeSong(@PathParam("id") String cardId) {
-		Card songremoved = repository.getCard(cardId);
+	public Response removeCard(@PathParam("id") String cardId) {
+		Card Cardremoved = repository.getCard(cardId);
 		
-		if (songremoved == null)
+		if (Cardremoved == null)
 			throw new NotFoundException("The card with id="+ cardId +" was not found");
 		else
-			repository.deleteSong(cardId);
+			repository.deleteCard(cardId);
 		
 		return Response.noContent().build();
 	}

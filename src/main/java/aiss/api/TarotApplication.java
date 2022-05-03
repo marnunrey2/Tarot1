@@ -5,19 +5,19 @@ import java.util.Set;
 
 import javax.ws.rs.core.Application;
 import aiss.api.resources.SpreadResource;
-import aiss.api.resources.SongResource;
+import aiss.api.resources.CardResource;
 
 
-public class MusicApplication extends Application {
+public class TarotApplication extends Application {
 	private Set<Object> singletons = new HashSet<Object>();
 	private Set<Class<?>> classes = new HashSet<Class<?>>();
 
 	// Loads all resources that are implemented in the application
 	// so that they can be found by RESTEasy.
-	public MusicApplication() {
+	public TarotApplication() {
 
 		singletons.add(SpreadResource.getInstance());
-		singletons.add(SongResource.getInstance());
+		singletons.add(CardResource.getInstance());
 	}
 
 	@Override

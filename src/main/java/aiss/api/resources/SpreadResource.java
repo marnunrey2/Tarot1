@@ -4,7 +4,6 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -25,10 +24,9 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 import org.jboss.resteasy.spi.BadRequestException;
 import org.jboss.resteasy.spi.NotFoundException;
 
-import aiss.api.resources.comparators.ComparatorNamePlaylist;
-import aiss.api.resources.comparators.ComparatorNamePlaylistReversed;
+import aiss.api.resources.comparators.ComparatorNameSpread;
+import aiss.api.resources.comparators.ComparatorNameSpreadReversed;
 import aiss.model.Spread;
-import aiss.model.Song;
 import aiss.model.repository.MapSpreadRepository;
 import aiss.model.repository.SpreadRepository;
 
@@ -61,8 +59,8 @@ public class SpreadResource {
 		for(Spread spread: repository.getAllSpreads()) {
 			if (name == null || spread.getName().equals(name)) {
 				if (isEmpty == null 
-						|| (isEmpty && (spread.get()==null || playlist.getSongs().size() == 0))
-						|| (!isEmpty && (spread.getSongs()!=null && playlist.getSongs().size() > 0))) {
+						|| (isEmpty && (spread.getCards()==null || spread.getCards().size() == 0))
+						|| (!isEmpty && (spread.getCards()!=null && spread.getCards().size() > 0))) {
 
 					result.add(spread);
 				}
@@ -71,9 +69,9 @@ public class SpreadResource {
 		
 		if (order != null) {
 			if(order.equals("name")) {
-				Collections.sort(result, new ComparatorNamePlaylist());
+				Collections.sort(result, new ComparatorNameSpread());
 			} else if (order.equals("-name")) {
-				Collections.sort(result, new ComparatorNamePlaylistReversed());
+				Collections.sort(result, new ComparatorNameSpreadReversed());
 			} else {
 				throw new BadRequestException("The order parameter must be 'name' or '-name'.");
 			}
@@ -88,10 +86,10 @@ public class SpreadResource {
 	@Produces("application/json")
 	public Spread get(@PathParam("id") String id)
 	{
-		Spread list = repository.getPlaylist(id);
+		Spread list = repository.getSpread(id);
 		
 		if (list == null) {
-			throw new NotFoundException("The playlist with id="+ id +" was not found");			
+			throw new NotFoundException("The spread with id="+ id +" was not found");			
 		}
 		
 		return list;
@@ -100,104 +98,64 @@ public class SpreadResource {
 	@POST
 	@Consumes("application/json")
 	@Produces("application/json")
-	public Response addPlaylist(@Context UriInfo uriInfo, Spread playlist) {
-		if (playlist.getName() == null || "".equals(playlist.getName()))
-			throw new BadRequestException("The name of the playlist must not be null");
+	public Response addSpread(@Context UriInfo uriInfo, Spread spread) {
 		
-		if (playlist.getSongs()!=null)
-			throw new BadRequestException("The songs property is not editable.");
+		if (spread.getName() == null || "".equals(spread.getName()))
+			throw new BadRequestException("The name of the spread must not be null");
+		
+		if (spread.getCards()!=null)
+			throw new BadRequestException("The cards property is not editable.");
 
-		repository.addPlaylist(playlist);
+		repository.addSpread(spread);
 
-		// Builds the response. Returns the playlist the has just been added.
+		// Builds the response. Returns the spread the has just been added.
 		UriBuilder ub = uriInfo.getAbsolutePathBuilder().path(this.getClass(), "get");
-		URI uri = ub.build(playlist.getId());
+		URI uri = ub.build(spread.getId());
 		ResponseBuilder resp = Response.created(uri);
-		resp.entity(playlist);			
+		resp.entity(spread);			
+		
 		return resp.build();
 	}
 
 	
 	@PUT
 	@Consumes("application/json")
-	public Response updatePlaylist(Spread playlist) {
-		Spread oldplaylist = repository.getPlaylist(playlist.getId());
-		if (oldplaylist == null) {
-			throw new NotFoundException("The playlist with id="+ playlist.getId() +" was not found");			
+	public Response updateSpread(Spread spread) {
+		
+		Spread oldspread = repository.getSpread(spread.getId());
+		if (oldspread == null) {
+			throw new NotFoundException("The spread with id="+ spread.getId() +" was not found");			
 		}
 		
-		if (playlist.getSongs()!=null)
-			throw new BadRequestException("The songs property is not editable.");
+		if (spread.getCards()!=null)
+			throw new BadRequestException("The cards property is not editable.");
 		
 		// Update name
-		if (playlist.getName()!=null)
-			oldplaylist.setName(playlist.getName());
+		if (spread.getName()!=null)
+			oldspread.setName(spread.getName());
 		
 		// Update description
-		if (playlist.getDescription()!=null)
-			oldplaylist.setDescription(playlist.getDescription());
+		if (spread.getDescription()!=null)
+			oldspread.setDescription(spread.getDescription());
+		
+		// Update numCards
+		if (spread.getNumCards()!=null)
+			oldspread.setNumCard(spread.getNumCards());
 		
 		return Response.noContent().build();
 	}
 	
 	@DELETE
 	@Path("/{id}")
-	public Response removePlaylist(@PathParam("id") String id) {
-		Spread toberemoved=repository.getPlaylist(id);
+	public Response removeSpread(@PathParam("id") String id) {
+		Spread toberemoved=repository.getSpread(id);
 		if (toberemoved == null)
-			throw new NotFoundException("The playlist with id="+ id +" was not found");
+			throw new NotFoundException("The spread with id="+ id +" was not found");
 		else
-			repository.deletePlaylist(id);
+			repository.deleteSpread(id);
 		
 		return Response.noContent().build();
 	}
 	
 	
-	@POST	
-	@Path("/{playlistId}/{songId}")
-	@Consumes("text/plain")
-	@Produces("application/json")
-	public Response addSong(@Context UriInfo uriInfo,@PathParam("playlistId") String playlistId, @PathParam("songId") String songId)
-	{				
-		
-		Spread playlist = repository.getPlaylist(playlistId);
-		Song song = repository.getSong(songId);
-		
-		if (playlist==null)
-			throw new NotFoundException("The playlist with id=" + playlistId + " was not found");
-		
-		if (song == null)
-			throw new NotFoundException("The song with id=" + songId + " was not found");
-		
-		if (playlist.getSong(songId)!=null)
-			throw new BadRequestException("The song is already included in the playlist.");
-			
-		repository.addSong(playlistId, songId);		
-
-		// Builds the response
-		UriBuilder ub = uriInfo.getAbsolutePathBuilder().path(this.getClass(), "get");
-		URI uri = ub.build(playlistId);
-		ResponseBuilder resp = Response.created(uri);
-		resp.entity(playlist);			
-		return resp.build();
-	}
-	
-	
-	@DELETE
-	@Path("/{playlistId}/{songId}")
-	public Response removeSong(@PathParam("playlistId") String playlistId, @PathParam("songId") String songId) {
-		Spread playlist = repository.getPlaylist(playlistId);
-		Song song = repository.getSong(songId);
-		
-		if (playlist==null)
-			throw new NotFoundException("The playlist with id=" + playlistId + " was not found");
-		
-		if (song == null)
-			throw new NotFoundException("The song with id=" + songId + " was not found");
-		
-		
-		repository.removeSong(playlistId, songId);		
-		
-		return Response.noContent().build();
-	}
 }

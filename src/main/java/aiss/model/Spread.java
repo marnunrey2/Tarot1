@@ -1,14 +1,16 @@
 package aiss.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
+
+import aiss.api.resources.CardResource;
 
 public class Spread {
 
 	private String id;
 	private String name;
 	private String description;
-	private List<Card> cards;
+	private Integer numCards;
+	private Map<String, String> cards;
 	
 	public Spread() {}
 	
@@ -16,67 +18,61 @@ public class Spread {
 		this.name = name;
 	}
 	
-	protected void setCards(List<Card> c) {
-		cards = c;
-	}
 	
 	public String getId() {
 		return id;
 	}
-
 	public void setId(String id) {
 		this.id = id;
 	}
-
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	public String getDescription() {
 		return description;
 	}
-
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	public List<Song> getSongs() {
-		return songs;
+	public Integer getNumCards() {
+		return numCards;
+	}
+	public void setNumCard(Integer numCards) {
+		this.numCards = numCards;
 	}
 	
-	public Song getSong(String id) {
-		if (songs==null)
-			return null;
+	public Map<String, String> getCards() {
+		for (int i=0; i<numCards;i++) {
+			Double rand = Math.random()*79;
+			Double randDirection = Math.random()*2;
+			Integer randInt = rand.intValue();
+			if (randDirection==0) {
+				cards.put(getCard(randInt.toString()).getName(),getCard(randInt.toString()).getReversed());
+			}
+			else {
+				cards.put(getCard(randInt.toString()).getName(),getCard(randInt.toString()).getUpright());
+			}
+			
+		}
+		return cards;
+	}
+	
+	public Card getCard(String id) {
 		
-		Song song =null;
-		for(Song s: songs)
-			if (s.getId().equals(id))
+		Card card =null;
+		for(Card c: CardResource.getAll(null, null)) {
+			if (c.getId().equals(id))
 			{
-				song=s;
+				card=c;
 				break;
 			}
-		
-		return song;
+		}
+		return card;
 	}
-	
-	public void addSong(Song s) {
-		if (songs==null)
-			songs = new ArrayList<Song>();
-		songs.add(s);
-	}
-	
-	public void deleteSong(Song s) {
-		songs.remove(s);
-	}
-	
-	public void deleteSong(String id) {
-		Song s = getSong(id);
-		if (s!=null)
-			songs.remove(s);
-	}
+
+
 
 }

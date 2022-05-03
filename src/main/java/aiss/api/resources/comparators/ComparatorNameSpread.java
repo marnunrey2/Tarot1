@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 import aiss.model.Spread;
 
-public class ComparatorNamePlaylist implements Comparator<Spread> {
+public class ComparatorNameSpread implements Comparator<Spread> {
 
 	@Override
 	public int compare(Spread p1, Spread p2) {
