@@ -1,4 +1,4 @@
-package aiss.model.resources;
+package aiss.api.resources;
 
 import static org.junit.Assert.*;
 
@@ -8,22 +8,22 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.restlet.resource.ResourceException;
 
-import aiss.model.Playlist;
+import aiss.model.Spread;
 import aiss.model.Card;
 
-public class PlaylistResourceTest {
+public class SpreadResourceTest {
 
-	static Playlist playlist, playlist2, playlist3, playlist4;
+	static Spread playlist, playlist2, playlist3, playlist4;
 	static Card card;
-	static PlaylistResource plr = new PlaylistResource();
+	static SpreadResource plr = new SpreadResource();
 	static CardResource sr = new CardResource();
 	
 	@BeforeClass
 	public static void setUp() throws Exception {
 		
-		playlist = plr.addPlaylist(new Playlist("Test list 1"));
-		playlist2 = plr.addPlaylist(new Playlist("Test list 2"));
-		playlist3 = plr.addPlaylist(new Playlist("Test list 3"));
+		playlist = plr.addPlaylist(new Spread("Test list 1"));
+		playlist2 = plr.addPlaylist(new Spread("Test list 2"));
+		playlist3 = plr.addPlaylist(new Spread("Test list 3"));
 		
 	
 		card = sr.addCard(new Card("Test title","Test suit","Test upright","2016"));
@@ -42,14 +42,14 @@ public class PlaylistResourceTest {
 
 	@Test
 	public void testGetAll() {
-		Collection<Playlist> playlists = plr.getAll(); 
+		Collection<Spread> playlists = plr.getAll(); 
 		
 		assertNotNull("The collection of playlists is null", playlists);
 		
 		// Show result
 		System.out.println("Listing all playlists:");
 		int i=1;
-		for (Playlist pl : playlists) {
+		for (Spread pl : playlists) {
 			System.out.println("Playlist " + i++ + " : " + pl.getName() + " (ID=" + pl.getId() + ")");
 		}
 		
@@ -57,7 +57,7 @@ public class PlaylistResourceTest {
 
 	@Test
 	public void testGetPlaylist() {
-		Playlist p = plr.getPlaylist(playlist.getId());
+		Spread p = plr.getPlaylist(playlist.getId());
 		
 		assertEquals("The id of the playlists do not match", playlist.getId(), p.getId());
 		assertEquals("The name of the playlists do not match", playlist.getName(), p.getName());
@@ -73,7 +73,7 @@ public class PlaylistResourceTest {
 		String playlistName = "Add playlist test title";
 		String playlistDescription = "Add playlist test description";
 		
-		playlist4 = plr.addPlaylist(new Playlist(playlistName,playlistDescription));
+		playlist4 = plr.addPlaylist(new Spread(playlistName,playlistDescription));
 		
 		assertNotNull("Error when adding the playlist", playlist4);
 		assertEquals("The playlist's name has not been setted correctly", playlistName, playlist4.getName());
@@ -91,7 +91,7 @@ public class PlaylistResourceTest {
 		
 		assertTrue("Error when updating the playlist", success);
 		
-		Playlist pl  = plr.getPlaylist(playlist.getId());
+		Spread pl  = plr.getPlaylist(playlist.getId());
 		assertEquals("The playlist's name has not been updated correctly", playlistName, pl.getName());
 
 	}
@@ -101,7 +101,7 @@ public class PlaylistResourceTest {
 		boolean success = plr.deletePlaylist(playlist2.getId());
 		assertTrue("Error when deleting the playlist", success);
 		
-		Playlist pl = plr.getPlaylist(playlist2.getId());
+		Spread pl = plr.getPlaylist(playlist2.getId());
 		assertNull("The playlist has not been deleted correctly", pl);
 	}
 

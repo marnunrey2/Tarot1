@@ -6,7 +6,7 @@ import java.util.Collection;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import aiss.api.Card;
+import aiss.model.Card;
 
 public class CardResourceTest {
 	

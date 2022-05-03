@@ -2,11 +2,11 @@ package aiss.api.resources.comparators;
 
 import java.util.Comparator;
 
-import aiss.model.Playlist;
+import aiss.model.Spread;
 
-public class ComparatorNamePlaylistReversed implements Comparator<Playlist> {
+public class ComparatorNamePlaylistReversed implements Comparator<Spread> {
 
-	public int compare(Playlist p1, Playlist p2) {
+	public int compare(Spread p1, Spread p2) {
 		return p2.getName().compareTo(p1.getName());
 	}
 

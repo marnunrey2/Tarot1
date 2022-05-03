@@ -3,21 +3,21 @@ package aiss.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Playlist {
+public class Spread {
 
 	private String id;
 	private String name;
 	private String description;
-	private List<Song> songs;
+	private List<Card> cards;
 	
-	public Playlist() {}
+	public Spread() {}
 	
-	public Playlist(String name) {
+	public Spread(String name) {
 		this.name = name;
 	}
 	
-	protected void setSongs(List<Song> s) {
-		songs = s;
+	protected void setCards(List<Card> c) {
+		cards = c;
 	}
 	
 	public String getId() {

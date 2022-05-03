@@ -27,48 +27,44 @@ import org.jboss.resteasy.spi.NotFoundException;
 
 import aiss.api.resources.comparators.ComparatorNamePlaylist;
 import aiss.api.resources.comparators.ComparatorNamePlaylistReversed;
-import aiss.model.Playlist;
+import aiss.model.Spread;
 import aiss.model.Song;
-import aiss.model.repository.MapPlaylistRepository;
-import aiss.model.repository.PlaylistRepository;
+import aiss.model.repository.MapSpreadRepository;
+import aiss.model.repository.SpreadRepository;
 
 
-
-
-
-@Path("/lists")
-public class PlaylistResource {
+@Path("/spreads")
+public class SpreadResource {
 	
 	/* Singleton */
-	private static PlaylistResource _instance=null;
-	PlaylistRepository repository;
+	private static SpreadResource _instance=null;
+	SpreadRepository repository;
 	
-	private PlaylistResource() {
-		repository=MapPlaylistRepository.getInstance();
-
+	private SpreadResource() {
+		repository=MapSpreadRepository.getInstance();
 	}
 	
-	public static PlaylistResource getInstance()
+	public static SpreadResource getInstance()
 	{
 		if(_instance==null)
-				_instance=new PlaylistResource();
+				_instance=new SpreadResource();
 		return _instance;
 	}
 	
 
 	@GET
 	@Produces("application/json")
-	public Collection<Playlist> getAll(@QueryParam("isEmpty") Boolean isEmpty, @QueryParam("name") String name, @QueryParam("order") String order)
+	public Collection<Spread> getAll(@QueryParam("isEmpty") Boolean isEmpty, @QueryParam("name") String name, @QueryParam("order") String order)
 	{
-		List<Playlist> result = new ArrayList<Playlist>();
+		List<Spread> result = new ArrayList<Spread>();
 		
-		for(Playlist playlist: repository.getAllPlaylists()) {
-			if (name == null || playlist.getName().equals(name)) {
+		for(Spread spread: repository.getAllSpreads()) {
+			if (name == null || spread.getName().equals(name)) {
 				if (isEmpty == null 
-						|| (isEmpty && (playlist.getSongs()==null || playlist.getSongs().size() == 0))
-						|| (!isEmpty && (playlist.getSongs()!=null && playlist.getSongs().size() > 0))) {
+						|| (isEmpty && (spread.get()==null || playlist.getSongs().size() == 0))
+						|| (!isEmpty && (spread.getSongs()!=null && playlist.getSongs().size() > 0))) {
 
-					result.add(playlist);
+					result.add(spread);
 				}
 			}
 		}
@@ -90,9 +86,9 @@ public class PlaylistResource {
 	@GET
 	@Path("/{id}")
 	@Produces("application/json")
-	public Playlist get(@PathParam("id") String id)
+	public Spread get(@PathParam("id") String id)
 	{
-		Playlist list = repository.getPlaylist(id);
+		Spread list = repository.getPlaylist(id);
 		
 		if (list == null) {
 			throw new NotFoundException("The playlist with id="+ id +" was not found");			
@@ -104,7 +100,7 @@ public class PlaylistResource {
 	@POST
 	@Consumes("application/json")
 	@Produces("application/json")
-	public Response addPlaylist(@Context UriInfo uriInfo, Playlist playlist) {
+	public Response addPlaylist(@Context UriInfo uriInfo, Spread playlist) {
 		if (playlist.getName() == null || "".equals(playlist.getName()))
 			throw new BadRequestException("The name of the playlist must not be null");
 		
@@ -124,8 +120,8 @@ public class PlaylistResource {
 	
 	@PUT
 	@Consumes("application/json")
-	public Response updatePlaylist(Playlist playlist) {
-		Playlist oldplaylist = repository.getPlaylist(playlist.getId());
+	public Response updatePlaylist(Spread playlist) {
+		Spread oldplaylist = repository.getPlaylist(playlist.getId());
 		if (oldplaylist == null) {
 			throw new NotFoundException("The playlist with id="+ playlist.getId() +" was not found");			
 		}
@@ -147,7 +143,7 @@ public class PlaylistResource {
 	@DELETE
 	@Path("/{id}")
 	public Response removePlaylist(@PathParam("id") String id) {
-		Playlist toberemoved=repository.getPlaylist(id);
+		Spread toberemoved=repository.getPlaylist(id);
 		if (toberemoved == null)
 			throw new NotFoundException("The playlist with id="+ id +" was not found");
 		else
@@ -164,7 +160,7 @@ public class PlaylistResource {
 	public Response addSong(@Context UriInfo uriInfo,@PathParam("playlistId") String playlistId, @PathParam("songId") String songId)
 	{				
 		
-		Playlist playlist = repository.getPlaylist(playlistId);
+		Spread playlist = repository.getPlaylist(playlistId);
 		Song song = repository.getSong(songId);
 		
 		if (playlist==null)
@@ -190,7 +186,7 @@ public class PlaylistResource {
 	@DELETE
 	@Path("/{playlistId}/{songId}")
 	public Response removeSong(@PathParam("playlistId") String playlistId, @PathParam("songId") String songId) {
-		Playlist playlist = repository.getPlaylist(playlistId);
+		Spread playlist = repository.getPlaylist(playlistId);
 		Song song = repository.getSong(songId);
 		
 		if (playlist==null)

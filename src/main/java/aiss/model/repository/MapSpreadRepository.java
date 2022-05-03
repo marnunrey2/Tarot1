@@ -4,22 +4,22 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import aiss.model.Playlist;
+import aiss.model.Spread;
 import aiss.model.Song;
 
 
-public class MapPlaylistRepository implements PlaylistRepository{
+public class MapSpreadRepository implements SpreadRepository{
 
-	Map<String, Playlist> playlistMap;
+	Map<String, Spread> playlistMap;
 	Map<String, Song> songMap;
-	private static MapPlaylistRepository instance=null;
+	private static MapSpreadRepository instance=null;
 	private int index=0;			// Index to create playlists and songs' identifiers.
 	
 	
-	public static MapPlaylistRepository getInstance() {
+	public static MapSpreadRepository getInstance() {
 		
 		if (instance==null) {
-			instance = new MapPlaylistRepository();
+			instance = new MapSpreadRepository();
 			instance.init();
 		}
 		
@@ -28,7 +28,7 @@ public class MapPlaylistRepository implements PlaylistRepository{
 	
 	public void init() {
 		
-		playlistMap = new HashMap<String,Playlist>();
+		playlistMap = new HashMap<String,Spread>();
 		songMap = new HashMap<String,Song>();
 		
 		// Create songs
@@ -68,12 +68,12 @@ public class MapPlaylistRepository implements PlaylistRepository{
 		addSong(gotye);
 		
 		// Create playlists
-		Playlist japlaylist=new Playlist();
+		Spread japlaylist=new Spread();
 		japlaylist.setName("AISSPlayList");
 		japlaylist.setDescription("AISS PlayList");
 		addPlaylist(japlaylist);
 		
-		Playlist playlist = new Playlist();
+		Spread playlist = new Spread();
 		playlist.setName("Favourites");
 		playlist.setDescription("A sample playlist");
 		addPlaylist(playlist);
@@ -90,24 +90,24 @@ public class MapPlaylistRepository implements PlaylistRepository{
 	
 	// Playlist related operations
 	@Override
-	public void addPlaylist(Playlist p) {
+	public void addPlaylist(Spread p) {
 		String id = "p" + index++;	
 		p.setId(id);
 		playlistMap.put(id,p);
 	}
 	
 	@Override
-	public Collection<Playlist> getAllPlaylists() {
+	public Collection<Spread> getAllPlaylists() {
 			return playlistMap.values();
 	}
 
 	@Override
-	public Playlist getPlaylist(String id) {
+	public Spread getPlaylist(String id) {
 		return playlistMap.get(id);
 	}
 	
 	@Override
-	public void updatePlaylist(Playlist p) {
+	public void updatePlaylist(Spread p) {
 		playlistMap.put(p.getId(),p);
 	}
 
@@ -119,7 +119,7 @@ public class MapPlaylistRepository implements PlaylistRepository{
 
 	@Override
 	public void addSong(String playlistId, String songId) {
-		Playlist playlist = getPlaylist(playlistId);
+		Spread playlist = getPlaylist(playlistId);
 		playlist.addSong(songMap.get(songId));
 	}
 

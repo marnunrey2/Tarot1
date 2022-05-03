@@ -2,12 +2,12 @@ package aiss.api.resources.comparators;
 
 import java.util.Comparator;
 
-import aiss.model.Playlist;
+import aiss.model.Spread;
 
-public class ComparatorNamePlaylist implements Comparator<Playlist> {
+public class ComparatorNamePlaylist implements Comparator<Spread> {
 
 	@Override
-	public int compare(Playlist p1, Playlist p2) {
+	public int compare(Spread p1, Spread p2) {
 		return p1.getName().compareTo(p2.getName());
 	}
 
