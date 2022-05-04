@@ -322,7 +322,7 @@ public class MapSpreadRepository implements SpreadRepository{
 				 "Ambition, hard work, persistance, being efficient",
 				 "Impatience, apathy, irresponsability, anxiety");
 		addCard(card48);
-		//
+		
 		Card card49 = new Card("Queen of Coins",
 				 "Minor Arcana-Coins",
 				 "A healer, luxury, being grounded, practicality, movement",
