@@ -14,7 +14,8 @@ public class MapSpreadRepository implements SpreadRepository{
 	Map<String, Spread> spreadMap;
 	Map<String, Card> cardMap;
 	private static MapSpreadRepository instance=null;
-	private int index=0;			// Index to create spreads and cards' identifiers.
+	private int indexC=0;			// Index to create cards identifiers.
+	private int indexS=0;			// Index to create spreads identifiers.
 	
 	
 	public static MapSpreadRepository getInstance() {
@@ -508,26 +509,26 @@ public class MapSpreadRepository implements SpreadRepository{
 		
 		
 		// Create spreads
-		Spread spreadaiss = new Spread("AISS Spread");
-//		spreadaiss.setName("AISS Spread");
-//		spreadaiss.setType(SpreadType.Work);
-//		spreadaiss.setDescription("AISS Spread");
-//		spreadaiss.setNumCard(3);
+		Spread spreadaiss = new Spread();
+		spreadaiss.setName("Five-Card Spread");
+		spreadaiss.setType(SpreadType.Daily);
+		spreadaiss.setDescription("Card 1 represents the present, Card 2 represents the past, Card 3 represents the future, Card 4 shows unseen influences affecting the situation, and Card 5 represents the potential for an alternate future");
+		spreadaiss.setNumCard(5);
 		addSpread(spreadaiss);
 		
-//		Spread decisions = new Spread();
-//		decisions.setName("Make a decision");
-//		spreadaiss.setType(SpreadType.Daily);
-//		decisions.setDescription("When you are between two options you can use this spread, so that you can easily make a decision. Each card talk about the consecuences of one of the options.");
-//		decisions.setNumCard(2);
-//		addSpread(decisions);
+		Spread decisions = new Spread();
+		decisions.setName("Make a decision");
+		spreadaiss.setType(SpreadType.Daily);
+		decisions.setDescription("When you are between two options you can use this spread, so that you can easily make a decision. Each card talk about the consecuences of one of the options.");
+		decisions.setNumCard(2);
+		addSpread(decisions);
 		
 	}
 	
 	// Spread related operations
 	@Override
 	public void addSpread(Spread s) {
-		String id = "p" + index++;	
+		String id = "s" + indexS++;	
 		s.setId(id);
 		spreadMap.put(id,s);
 	}
@@ -563,7 +564,7 @@ public class MapSpreadRepository implements SpreadRepository{
 	
 	@Override
 	public void addCard(Card c) {
-		String id = "c" + index++;
+		String id = "c" + indexC++;
 		c.setId(id);
 		cardMap.put(id, c);
 	}

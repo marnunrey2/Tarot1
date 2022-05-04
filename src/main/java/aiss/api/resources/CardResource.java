@@ -25,12 +25,10 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 import org.jboss.resteasy.spi.BadRequestException;
 import org.jboss.resteasy.spi.NotFoundException;
 
-import aiss.api.resources.comparators.ComparatorReversed;
-import aiss.api.resources.comparators.ComparatorReversedReversed;
+import aiss.api.resources.comparators.ComparatorName;
+import aiss.api.resources.comparators.ComparatorNameReversed;
 import aiss.api.resources.comparators.ComparatorSuit;
 import aiss.api.resources.comparators.ComparatorSuitReversed;
-import aiss.api.resources.comparators.ComparatorUpright;
-import aiss.api.resources.comparators.ComparatorUprightReversed;
 import aiss.model.Card;
 import aiss.model.repository.MapSpreadRepository;
 import aiss.model.repository.SpreadRepository;
@@ -72,7 +70,7 @@ public class CardResource {
             	}
             }
             if (name != null && suit != null) {
-            	throw new NotFoundException("The card with name="+ name + " and suit=" + suit + " doesn't exist");	
+            	throw new NotFoundException("Use one parameter only");	
             }
         }
         
@@ -82,23 +80,17 @@ public class CardResource {
         
         
         if (order != null) {
-            if (order.equals("suit")) {
+        	if (order.equals("name")) {
+                Collections.sort(result, new ComparatorName());
+            } 
+        	else if (order.equals("suit")) {
             	Collections.sort(result, new ComparatorSuit());
             }
-            else if (order.equals("upright")) {
-                Collections.sort(result, new ComparatorUpright());
-            }
-            else if (order.equals("reversed")) {
-                Collections.sort(result, new ComparatorReversed());
-            }
-            if (order.equals("-suit")) {
+        	if (order.equals("-name")) {
+                Collections.sort(result, new ComparatorNameReversed());
+            } 
+        	else if (order.equals("-suit")) {
                 Collections.sort(result, new ComparatorSuitReversed());
-            }
-            else if (order.equals("-upright")) {
-                Collections.sort(result, new ComparatorUprightReversed());
-            }
-            else if (order.equals("-reversed")) {
-                Collections.sort(result, new ComparatorReversedReversed());
             }
         }
         
@@ -144,7 +136,9 @@ public class CardResource {
 	@PUT
 	@Consumes("application/json")
 	public Response updateCard(Card card) {
+		
 		Card oldCard = repository.getCard(card.getId());
+		
 		if (oldCard == null) {
 			throw new NotFoundException("The card with id="+ card.getId() +" was not found");			
 		}

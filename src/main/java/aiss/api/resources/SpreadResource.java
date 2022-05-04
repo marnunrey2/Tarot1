@@ -43,8 +43,7 @@ public class SpreadResource {
 		repository=MapSpreadRepository.getInstance();
 	}
 	
-	public static SpreadResource getInstance()
-	{
+	public static SpreadResource getInstance() {
 		if(_instance==null)
 				_instance=new SpreadResource();
 		return _instance;
@@ -53,8 +52,8 @@ public class SpreadResource {
 
 	@GET
 	@Produces("application/json")
-	public Collection<Spread> getAll(@QueryParam("name") String name, @QueryParam("order") String order)
-	{
+	public Collection<Spread> getAll(@QueryParam("name") String name, @QueryParam("order") String order) {
+		
 		List<Spread> result = new ArrayList<Spread>();
 		
 		for(Spread spread: repository.getAllSpreads()) {
@@ -86,8 +85,8 @@ public class SpreadResource {
 	@GET
 	@Path("/{id}")
 	@Produces("application/json")
-	public Spread get(@PathParam("id") String id)
-	{
+	public Spread get(@PathParam("id") String id) {
+		
 		Spread list = repository.getSpread(id);
 		
 		if (list == null) {
@@ -97,6 +96,32 @@ public class SpreadResource {
 		return list;
 	}
 	
+	@GET
+	@Path("/{id}/getCards")
+	@Produces("application/json")
+	public List<String> getCards(@PathParam("id") String id) {
+		
+		List<String> cards = new ArrayList<>();
+		cards.add(repository.getSpread(id).getDescription());
+		
+		for (int i=0; i<repository.getSpread(id).getNumCards(); i++) {
+			Double rand = Math.random()*79;
+			Double randDirection = Math.random()*2;
+			Integer randInt = rand.intValue();
+			Integer randDirectionInt = randDirection.intValue();
+			String cardId = "c" + randInt.toString();
+			if (randDirectionInt==0) {
+				cards.add((i+1) + ". " + repository.getCard(cardId).getName() + " (Reversed): " + repository.getCard(cardId).getReversed());
+			}
+			else {
+				cards.add((i+1) + ". " + repository.getCard(cardId).getName() + " (Upright): " + repository.getCard(cardId).getUpright());
+			}
+			
+		}
+		return cards;
+	}
+	
+	
 	@POST
 	@Consumes("application/json")
 	@Produces("application/json")
@@ -105,9 +130,6 @@ public class SpreadResource {
 		if (spread.getName() == null || "".equals(spread.getName()))
 			throw new BadRequestException("The name of the spread must not be null");
 		
-		if (spread.getCards()!=null)
-			throw new BadRequestException("The cards property is not editable.");
-
 		repository.addSpread(spread);
 
 		// Builds the response. Returns the spread the has just been added.
@@ -129,12 +151,13 @@ public class SpreadResource {
 			throw new NotFoundException("The spread with id="+ spread.getId() +" was not found");			
 		}
 		
-		if (spread.getCards()!=null)
-			throw new BadRequestException("The cards property is not editable.");
-		
 		// Update name
 		if (spread.getName()!=null)
 			oldspread.setName(spread.getName());
+
+		// Update description
+		if (spread.getType()!=null)
+			oldspread.setType(spread.getType());
 		
 		// Update description
 		if (spread.getDescription()!=null)
