@@ -518,7 +518,7 @@ public class MapSpreadRepository implements SpreadRepository{
 		
 		Spread decisions = new Spread();
 		decisions.setName("Make a decision");
-		spreadaiss.setType(SpreadType.Daily);
+		decisions.setType(SpreadType.Daily);
 		decisions.setDescription("When you are between two options you can use this spread, so that you can easily make a decision. Each card talk about the consecuences of one of the options.");
 		decisions.setNumCard(2);
 		addSpread(decisions);
