@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -57,26 +58,7 @@ public class CardResource {
     public static Collection<Card> getAll(@QueryParam("order") String order, @QueryParam("arcana") String arcana, @QueryParam("suit") String suit)
     {
         List<Card> result = new ArrayList<Card>();
-        if (order != null) {
-            if (order.equals("suit")) {
-            	Collections.sort(result, new ComparatorSuit());
-            }
-            else if (order.equals("upright")) {
-                Collections.sort(result, new ComparatorUpright());
-            }
-            else if (order.equals("reversed")) {
-                Collections.sort(result, new ComparatorReversed());
-            }
-            if (order.equals("-suit")) {
-                Collections.sort(result, new ComparatorSuitReversed());
-            }
-            else if (order.equals("-upright")) {
-                Collections.sort(result, new ComparatorUprightReversed());
-            }
-            else if (order.equals("-reversed")) {
-                Collections.sort(result, new ComparatorReversedReversed());
-            }
-        }
+    
         for (Card card: repository.getAllCards()) {
             if (arcana != null) {
                 if (arcana.equals("Major Arcana") && suit==  null) {
@@ -100,6 +82,33 @@ public class CardResource {
                 }
             }
         }
+        
+        if (arcana==null && suit==null) {
+        	result = repository.getAllCards().stream().collect(Collectors.toList());
+        }
+        
+        
+        if (order != null) {
+            if (order.equals("suit")) {
+            	Collections.sort(result, new ComparatorSuit());
+            }
+            else if (order.equals("upright")) {
+                Collections.sort(result, new ComparatorUpright());
+            }
+            else if (order.equals("reversed")) {
+                Collections.sort(result, new ComparatorReversed());
+            }
+            if (order.equals("-suit")) {
+                Collections.sort(result, new ComparatorSuitReversed());
+            }
+            else if (order.equals("-upright")) {
+                Collections.sort(result, new ComparatorUprightReversed());
+            }
+            else if (order.equals("-reversed")) {
+                Collections.sort(result, new ComparatorReversedReversed());
+            }
+        }
+        
         return result;
     }
 	
