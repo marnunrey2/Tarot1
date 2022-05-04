@@ -120,25 +120,6 @@ public class CardResource {
 		return card;
 	}
 	
-	@GET
-	@Path("/{name}")
-	@Produces("application/json")
-	public Card getByName(@PathParam("name") String cardName)
-	{
-		Card card = null;
-		for (Integer i=0; i<repository.getAllCards().size();i++) {
-			if(repository.getCard(i.toString()).getName().contains(cardName)) {
-				card = repository.getCard(i.toString());
-				break;
-			}
-		}
-		
-		if (card == null) {
-			throw new NotFoundException("The card with name="+ cardName +" was not found");			
-		}
-		
-		return card;
-	}
 	
 	@POST
 	@Consumes("application/json")

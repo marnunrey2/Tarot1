@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -52,20 +53,21 @@ public class SpreadResource {
 
 	@GET
 	@Produces("application/json")
-	public Collection<Spread> getAll(@QueryParam("isEmpty") Boolean isEmpty, @QueryParam("name") String name, @QueryParam("order") String order)
+	public Collection<Spread> getAll(@QueryParam("name") String name, @QueryParam("order") String order)
 	{
 		List<Spread> result = new ArrayList<Spread>();
 		
 		for(Spread spread: repository.getAllSpreads()) {
-			if (name == null || spread.getName().equals(name)) {
-				if (isEmpty == null 
-						|| (isEmpty && (spread.getCards()==null || spread.getCards().size() == 0))
-						|| (!isEmpty && (spread.getCards()!=null && spread.getCards().size() > 0))) {
-
+			if (name != null) {
+				if (spread.getName().equals(name)) {
 					result.add(spread);
 				}
 			}
 		}
+		
+		if (name==null) {
+        	result = repository.getAllSpreads().stream().collect(Collectors.toList());
+        }
 		
 		if (order != null) {
 			if(order.equals("name")) {
