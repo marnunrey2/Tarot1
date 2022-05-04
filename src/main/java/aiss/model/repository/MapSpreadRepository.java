@@ -505,7 +505,11 @@ public class MapSpreadRepository implements SpreadRepository{
 				 "Tyranny, a lack of harmony, weakness, volatility");
 		addCard(card78);
 		
-		
+		//Test cards
+		Card testCard1 = new Card("Test card name", "Test card suit", "Rest card upright meaning", "Test card reversed meaning");
+		addCard(testCard1);
+		Card testCard2 = new Card("Test card name", "Test card suit", "Rest card upright meaning", "Test card reversed meaning");
+		addCard(testCard2);
 		
 		// Create spreads
 		Spread spreadaiss=new Spread();
