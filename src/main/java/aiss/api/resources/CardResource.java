@@ -54,7 +54,7 @@ public class CardResource {
 	
 	@GET
     @Produces("application/json")
-    public static Collection<Card> getAll(@QueryParam("order") String order, @QueryParam("q") String q)
+    public static Collection<Card> getAll(@QueryParam("order") String order, @QueryParam("arcana") String arcana, @QueryParam("suit") String suit)
     {
         List<Card> result = new ArrayList<Card>();
         if (order != null) {
@@ -78,15 +78,25 @@ public class CardResource {
             }
         }
         for (Card card: repository.getAllCards()) {
-            if (q != null) {
-                if (card.getSuit().contains(q)) {
-                    result.add(card);
-                }
-                if (card.getUpright().contains(q)) {
-                    result.add(card);
-                }
-                if (card.getReversed().contains(q)) {
-                    result.add(card);
+            if (arcana != null) {
+                if (arcana.equals("Major Arcana") && suit==  null) {
+                    if (card.getSuit().equals("Major Arcana")) {
+                    	result.add(card);
+                    }
+                }else if(arcana.equals("Major Arcana") && suit !=  null) {
+                	throw new NotFoundException("Major Arcana does not have suits");
+                }else if(arcana.equals("Minor Arcana") && suit == null) {
+                	if (card.getSuit().contains("Minor Arcana")) {
+                		result.add(card);
+                	}
+                }else if(arcana.equals("Minor Arcana") && suit != null) {
+                	if(card.getSuit().contains(suit)) {
+                		result.add(card);
+                	}else {
+                		throw new NotFoundException("Minor Arcana does not have that suit");
+                	}
+                }else {
+                	throw new NotFoundException("The filter is incorrect");
                 }
             }
         }
