@@ -63,7 +63,7 @@ public class Spread {
 	public Card getCard(String id) {
 		
 		Card card =null;
-		for(Card c: CardResource.getAll(null, null)) {
+		for(Card c: CardResource.getAll(null, null, null)) {
 			if (c.getId().equals(id))
 			{
 				card=c;

@@ -55,19 +55,28 @@ public class CardResource {
 	
 	@GET
     @Produces("application/json")
-    public static Collection<Card> getAll(@QueryParam("order") String order, @QueryParam("suit") String suit)
+    public static Collection<Card> getAll(@QueryParam("order") String order, @QueryParam("suit") String suit, @QueryParam("name") String name)
     {
         List<Card> result = new ArrayList<Card>();
     
         for (Card card: repository.getAllCards()) {
-            if (suit != null) {
+            if (suit != null && name == null) {
                 if (card.getSuit().contains(suit)) {
                     result.add(card);
                 } 
             }
+            if (name != null && suit == null) {
+            	if (card.getName().contains(name)) {
+            		result.add(card);
+            		break;
+            	}
+            }
+            if (name != null && suit != null) {
+            	throw new NotFoundException("The card with name="+ name + " and suit=" + suit + " doesn't exist");	
+            }
         }
         
-        if (suit==null) {
+        if (suit==null && name==null) {
         	result = repository.getAllCards().stream().collect(Collectors.toList());
         }
         
