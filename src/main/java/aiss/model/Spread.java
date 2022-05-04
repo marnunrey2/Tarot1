@@ -8,6 +8,7 @@ public class Spread {
 
 	private String id;
 	private String name;
+	private SpreadType type;
 	private String description;
 	private Integer numCards;
 	private Map<String, String> cards;
@@ -30,6 +31,12 @@ public class Spread {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public SpreadType getType() {
+		return type;
+	}
+	public void setType(SpreadType type) {
+		this.type = type;
 	}
 	public String getDescription() {
 		return description;
