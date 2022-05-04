@@ -105,7 +105,7 @@ public class SpreadResource {
 		cards.add(repository.getSpread(id).getDescription());
 		
 		for (int i=0; i<repository.getSpread(id).getNumCards(); i++) {
-			Double rand = Math.random()*79;
+			Double rand = Math.random()*78;
 			Double randDirection = Math.random()*2;
 			Integer randInt = rand.intValue();
 			Integer randDirectionInt = randDirection.intValue();
