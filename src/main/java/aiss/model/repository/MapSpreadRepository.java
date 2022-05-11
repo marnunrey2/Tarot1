@@ -7,12 +7,18 @@ import java.util.Map;
 import aiss.model.Spread;
 import aiss.model.SpreadType;
 import aiss.model.Card;
+import aiss.model.CustomCard;
+import aiss.model.CustomSuit;
+import aiss.model.Game;
+import aiss.model.GameDifficulty;
 
 
 public class MapSpreadRepository implements SpreadRepository{
 
 	Map<String, Spread> spreadMap;
 	Map<String, Card> cardMap;
+	Map<String, CustomCard> customMap;
+	Map<String, Game>  gameMap;
 	private static MapSpreadRepository instance=null;
 	private int indexC=0;			// Index to create cards identifiers.
 	private int indexS=0;			// Index to create spreads identifiers.
@@ -523,7 +529,148 @@ public class MapSpreadRepository implements SpreadRepository{
 		decisions.setNumCard(2);
 		addSpread(decisions);
 		
+		
+		// Create custom cards
+		CustomCard cc1 = new CustomCard("Sponge Bob", 
+				CustomSuit.characters,
+				"Nutshell, dumb decisions, naive, selfish",
+				"Mature, responsible, smart decisions");
+		addCustomCard(cc1);
+		
+		CustomCard cc2 = new CustomCard("Belen Esteban", 
+				CustomSuit.celebrities,
+				"Noisy, ",
+				"");
+		addCustomCard(cc2);
+		
+		CustomCard cc3 = new CustomCard("Belen Esteban", 
+				CustomSuit.animals,
+				"Noisy, ",
+				"");
+		addCustomCard(cc3);
+		
+		CustomCard cc4 = new CustomCard("Belen Esteban", 
+				CustomSuit.mythology,
+				"Noisy, ",
+				"");
+		addCustomCard(cc4);
+		
+		CustomCard cc5 = new CustomCard("Belen Esteban", 
+				CustomSuit.others,
+				"Noisy, ",
+				"");
+		addCustomCard(cc5);
+		
+		
+		// Create Games
+		Game g1 = new Game("Partita",
+				"Italy",
+				GameDifficulty.Easy,
+				4,
+				54,
+				"Trumps from I to XXI, The Fool, Spades and Clubs: King, Queen, Cavalier, Valet, Ten to Seven, Diamonds and Hearts: King, Queen, Cavalier, Valet, Ace to Four",
+				"Card strength\n"
+				+ "Trumps:\n"
+				+ "Trumps are the strongest and always take the trick when played. By strength they go from XXI(the strongest) to VI, and trump I, II, III, III and V are all of equal strength. In case that any of the trumps from I to V are played in the same trick, the last one played wins the trick.\n"
+				+ "\n"
+				+ "Suits:\n"
+				+ "Suits go from strongest to weakest in this order:\n"
+				+ "\n"
+				+ "Spades and Clubs: King, Queen, Cavalier, Valet, Ten to Seven\n"
+				+ "Diamonds and Hearts: King, Queen, Cavalier, Valet, Ace to Four\n"
+				+ "The Fool:\n"
+				+ "The Fool is an excuse. He can be played at any time as an excuse to not play a card. The team that played the Fool takes him into their trick pile.\n"
+				+ "\n"
+				+ "Teams, the game and the dealer\n"
+				+ "Partita is played in fixed teams for an entire game. One game usually consists of four deals, but if you want you can change that, so that you can play the entire night in fixed teams.\n"
+				+ "\n"
+				+ "Teams are formed in regards to the dealer. Dealer of the next game is always the partner of the player who dealt the last hand of the previous game. The first dealer is chosen at random by card draw.\n"
+				+ "\n"
+				+ "The deal\n"
+				+ "Each player is dealt 13 cards and the dealer takes the last two, so he has 15 cards. The dealer then discards two cards into his teams trick pile. He can not discard Kings, Trump I or XXI and the Fool. He can only discard trumps if he has no other option, but he has to announce it and show them to the other players.\n"
+				+ "\n"
+				+ "Gameplay\n"
+				+ "The game itself is played like any other tarot trick taking card game. The dealer leads the first trick and other players must follow suite, if they can’t, they have to play a trump, if they don’t have a trump, they can play any card(but it doesn’t win). The player that took the previous trick always leads the next trick. Play continues this way until players run out of cards.\n"
+				+ "\n"
+				+ "Scoring\n"
+				+ "Scoring is done is done by counting two cards at a time. Each pair of cards is worth 1 point, plus the value of any court cards or the I and XXI of trumps that it might contain. Value of these cards is as follows:\n"
+				+ "\n"
+				+ "Trump XXI = 4 points\n"
+				+ "Trump I = 4 points\n"
+				+ "Kings = 4 points\n"
+				+ "Queens = 3 points\n"
+				+ "Cavaliers = 2 points\n"
+				+ "Valets = 1 point\n"
+				+ "The Fool is always counted separately and is worth 5 points.\n"
+				+ "\n"
+				+ "If a team has an odd number of cards, the odd empty card is also worth 1 point.\n"
+				+ "\n"
+				+ "If a team scored below 40 points, it gets a negative score equal to the difference between 40 and their score.\n"
+				+ "\n"
+				+ "If a team scored above 40 points, it gets a positive score equal to the difference between 40 and their score.");
+		addGame(g1);
+		
+		Game g2 = new Game("French Tarot",
+				"French",
+				GameDifficulty.Hard,
+				3,
+				78,
+				"21 numbered trump cards (atouts), and 1 unnumbered trump card: the \"Excuse\" or \"Fool\" (L'excuse or Fou)\n"
+				+ "3 of which (oudlers) are trumps with particular importance: the 1 of trumps, the 21 of trumps and the \"Excuse\" (or Fool) as these determine the contract the taker commits to in that particular game.\n"
+				+ "4 suits of 14 cards each:\n"
+				+ "numbered \"pip cards\" (aka 'fillers') from 1 to 10 have no true value, except when taking its \"fold\" or add .5 point at counting (the \"Ace\" has always the lowest value and so it is marked with number 1 instead of the \"A\" common in 52-card decks),\n"
+				+ "four \"face cards\"; the Valet (Jack), Cavalier (Knight; not seen in 52-card decks), Dame (Queen) and Roi (King) are respectively worth 2, 3, 4 and 5 points at end of match counting.",
+				"Rank of cards\n"
+				+ "Three cards known as oudlers (\"honors\") are of particular importance in the game: the 1 of trumps (le petit or \"Little one\"), the 21 of trumps (le monde or \"The World\", a holdover from the name of this card in the Tarot of Marseilles), and the Excuse (the Fool). These cards, when captured by the high bidder, lower the point threshold needed to fulfill the contract. In colloquial French, oudlers are often referred to as bouts (ends).\n"
+				+ "\n"
+				+ "The ranking of the hearts, clubs, diamonds and spades from the top is: King, Queen, Knight, Jack, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 (Ace).\n"
+				+ "\n"
+				+ "As an aside, the trumps and Fool can be removed to yield a 56-card deck very similar to a 52-card French deck but with the additional Cavalier (knight, lit. horseman) court card in each suit. This deck configuration, plus the Fool, was copied using culture-neutral card designs and values to create the deck for the Rook game.\n"
+				+ "\n"
+				+ "Excuse\n"
+				+ "The only card with a special effect is the \"Fool\", L'Excuse. The Excuse may be played on any trick; it \"excuses\" the player from following suit. However, it normally doesn't win the trick. The card also normally remains the property of the person who played it, not the winner of that trick; to compensate for this in the scoring count, the owner of the Excuse should instead give the winner of the trick a half-point card (a trump other than an oudler, or a suited number card; see Scoring) from his or her score pile.\n"
+				+ "\n"
+				+ "Two common exceptions to the above behaviors are seen when the Excuse is played on the last trick, and what happens depends on whether the side playing the Fool has taken all the previous tricks (see Chelem/Slam below). If the side has taken all previous tricks, the card takes the last trick; if not, it changes hands to the other side, even if the trick is won by a partner or fellow defender of the person playing it."
+				+ "Three-player variant\n"
+				+ "The dog consists of six cards, each hand of 24 cards, dealt in packets of three. 13 trumps are needed for a single handful, 15 for a double handful, 18 for a triple."
+				+ "Scoring\n"
+				+ "When the last trick has been played, the round ends. The taker counts the number of oudlers and the point value of all cards in his scoring pile. Alternatively, if the taker has taken the majority of tricks, the defenders can pool their scoring piles and count their oudlers and points; the taker has all remaining points.\n"
+				+ "\n"
+				+ "Value of the cards\n"
+				+ "Cards for scoring purposes are divided into two groups: \"counters\" (face cards and oudlers) and \"ordinary\" cards or cartes basses (any suited pip card, and any trump except the 1 and 21). Cards are paired, with each counter matched to an ordinary card, and remaining ordinary cards are also paired. The values of pairs are then counted and summed:\n"
+				+ "\n"
+				+ "1 King or oudler + 1 ordinary card: 5 points\n"
+				+ "1 Queen + 1 ordinary card: 4 points\n"
+				+ "1 Knight + 1 ordinary card: 3 points\n"
+				+ "1 Jack + 1 ordinary card: 2 points\n"
+				+ "2 ordinary cards: 1 point\n"
+				+ "Each card thus has an individual value; the pairing simply makes it easier to count points. If a card cannot be paired, because there are an odd number in the scoring pile (common with three or five players) or more counters than ordinary cards:\n"
+				+ "\n"
+				+ "Kings and oudlers are worth 4+1⁄2 points each;\n"
+				+ "Queens are worth 3+1⁄2;\n"
+				+ "Knights are worth 2+1⁄2;\n"
+				+ "Jacks are worth 1+1⁄2;\n"
+				+ "All other cards are worth 1⁄2 point.\n"
+				+ "Winning\n"
+				+ "The number of points the taker needs depends on how many of the oudlers (Excuse, Petit, 21 of trumps) are among his won tricks.\n"
+				+ "\n"
+				+ "With 3 oudlers the taker needs at least 36 card points to win;\n"
+				+ "With 2 oudlers the taker needs at least 41 card points to win;\n"
+				+ "With 1 oudler the taker needs at least 51 card points to win;\n"
+				+ "With none the taker needs at least 56 card points to win.\n"
+				+ "There are 91 points to be taken in a round, so if the taker has:\n"
+				+ "\n"
+				+ "3 oudlers, the defenders need at least 55+1⁄2 card points to win;\n"
+				+ "2 oudlers, the defenders need at least 50+1⁄2 card points to win;\n"
+				+ "1 oudler, the defenders need at least 40+1⁄2 card points to win;\n"
+				+ "no oudler, the defenders need at least 35+1⁄2 card points to win.");
+		addGame(g2);
 	}
+	
+	
+	
+	
+	
 	
 	// Spread related operations
 	@Override
@@ -591,6 +738,82 @@ public class MapSpreadRepository implements SpreadRepository{
 	@Override
 	public void deleteCard(String cardId) {
 		cardMap.remove(cardId);
+	}
+
+	
+	// Custom Cards related operations
+	
+	@Override
+	public void addCustomCard(CustomCard c) {
+		String id = "c" + indexC++;
+		c.setId(id);
+		customMap.put(id, c);
+		
+	}
+
+	@Override
+	public Collection<CustomCard> getAllCustomCards() {
+		return customMap.values();
+	}
+
+	@Override
+	public CustomCard getCustomCard(String cardId) {
+		return customMap.get(cardId);
+	}
+
+	@Override
+	public void updateCustomCard(CustomCard c) {
+		CustomCard card = customMap.get(c.getId());
+		card.setName(c.getName());
+		card.setSuit(c.getSuit());
+		card.setUpright(c.getUpright());
+		card.setReversed(c.getReversed());
+		
+	}
+
+	@Override
+	public void deleteCustomCard(String cardId) {
+		customMap.remove(cardId);
+		
+	}
+
+	
+	// Game related operations
+	
+	@Override
+	public void addGame(Game c) {
+		String id = "c" + indexC++;
+		c.setId(id);
+		gameMap.put(id, c);
+		
+	}
+
+	@Override
+	public Collection<Game> getAllGames() {
+		return gameMap.values();
+	}
+
+	@Override
+	public Game getGame(String cardId) {
+		return gameMap.get(cardId);
+	}
+
+	@Override
+	public void updateGame(Game c) {
+		Game game = gameMap.get(c.getId());
+		game.setName(c.getName());
+		game.setOrigin(c.getOrigin());
+		game.setDifficulty(c.getDifficulty());
+		game.setNumCards(c.getNumCards());
+		game.setDeckDescription(c.getDeckDescription());
+		game.setRules(c.getRules());
+		
+	}
+
+	@Override
+	public void deleteGame(String cardId) {
+		gameMap.remove(cardId);
+		
 	}
 
 	
