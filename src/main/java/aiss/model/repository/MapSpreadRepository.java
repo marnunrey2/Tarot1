@@ -36,6 +36,8 @@ public class MapSpreadRepository implements SpreadRepository{
 		
 		spreadMap = new HashMap<String,Spread>();
 		cardMap = new HashMap<String,Card>();
+		customMap = new HashMap<String,CustomCard>();
+		gameMap = new HashMap<String,Game>();
 		
 		// CREATE CARDS
 		

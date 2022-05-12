@@ -1,6 +1,7 @@
 package aiss.api.resources;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -111,6 +112,30 @@ public class CardResource {
 		
 		return card;
 	}
+	
+	@GET
+    @Path("/dailyCard")
+    @Produces("application/json")
+    public String getDailyCard() {
+        LocalDate date = LocalDate.now();
+        Integer rand = 3*(date.getDayOfMonth() + date.getDayOfYear() + date.getYear());
+        Integer mod = Math.floorMod(rand, 156);
+        String dailyCard = null;
+        
+        for (Card card : repository.getAllCards()) {
+        	String id = card.getId().replace("c", "");
+            Integer numCard = Integer.valueOf(id);
+            if (numCard == mod) {
+                dailyCard = card.getName() + "(Upright): " + card.getUpright();
+                break;
+            }
+            if (numCard*2 == mod) {
+                dailyCard = card.getName() + "(Reversed): " + card.getReversed();
+                break;
+            }
+        }
+        return dailyCard;
+    }
 	
 	
 	@POST
