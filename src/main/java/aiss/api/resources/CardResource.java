@@ -144,7 +144,7 @@ public class CardResource {
 	@Produces("application/json")
 	public Response addCard(@Context UriInfo uriInfo, Card card, @QueryParam("key") String key) {
 		
-		if (key == "propensos") {
+		if (key.equals("propensos")) {
 			if (card.getName() == null || "".equals(card.getName()))
 				throw new BadRequestException("The name of the card must not be null");
 	
@@ -166,7 +166,7 @@ public class CardResource {
 	@Consumes("application/json")
 	public Response updateCard(Card card, @QueryParam("key") String key) {
 		
-		if (key == "propensos") {
+		if (key.equals("propensos")) {
 			
 			Card oldCard = repository.getCard(card.getId());
 			
@@ -203,7 +203,7 @@ public class CardResource {
 	@DELETE
 	@Path("/{id}")
 	public Response removeCard(@PathParam("id") String cardId, @QueryParam("key") String key) {
-		if (key == "propensos") {
+		if (key.equals("propensos")) {
 			Card Cardremoved = repository.getCard(cardId);
 			
 			if (Cardremoved == null)
