@@ -114,91 +114,106 @@ public class CardResource {
 	}
 	
 	@GET
-    @Path("/dailyCard")
-    @Produces("application/json")
-    public String getDailyCard() {
-        LocalDate date = LocalDate.now();
-        Integer rand = 3*(date.getDayOfMonth() + date.getDayOfYear() + date.getYear());
-        Integer mod = Math.floorMod(rand, 156);
-        String dailyCard = null;
-        
-        for (Card card : repository.getAllCards()) {
-        	String id = card.getId().replace("c", "");
-            Integer numCard = Integer.valueOf(id);
-            if (numCard == mod) {
-                dailyCard = card.getName() + "(Upright): " + card.getUpright();
-                break;
-            }
-            if (numCard*2 == mod) {
-                dailyCard = card.getName() + "(Reversed): " + card.getReversed();
-                break;
-            }
-        }
-        return dailyCard;
-    }
+	@Path("/dailyCard")
+	@Produces("application/json")
+	public String getDailyCard()
+	{	
+		LocalDate date = LocalDate.now();
+		Integer rand = 3*(date.getDayOfMonth() + date.getDayOfYear() + date.getYear());
+		Integer mod = Math.floorMod(rand, 156);
+		Integer numCard;
+		String dailyCard = null;
+		for (Card card : repository.getAllCards()) {
+			numCard = Integer.valueOf(card.getId().replace("c", ""));
+			if (numCard == mod) {
+				dailyCard = card.getName()+ "(Upright): " + card.getUpright();
+				break;
+			}
+			if (numCard*2 == mod) {
+				dailyCard = card.getName()+ "(Reversed): " + card.getReversed();
+				break;
+			}
+			
+		}
+		return dailyCard;
+	}
 	
 	
 	@POST
 	@Consumes("application/json")
 	@Produces("application/json")
-	public Response addCard(@Context UriInfo uriInfo, Card card) {
+	public Response addCard(@Context UriInfo uriInfo, Card card, @QueryParam("key") String key) {
 		
-		if (card.getName() == null || "".equals(card.getName()))
-			throw new BadRequestException("The name of the card must not be null");
-
-		repository.addCard(card);
-
-		// Builds the response. Returns the Card's uri the has just been added.
-		UriBuilder ub = uriInfo.getAbsolutePathBuilder().path(this.getClass(), "get");
-		URI uri = ub.build(card.getId());
-		ResponseBuilder resp = Response.created(uri);
-		resp.entity(card);		
-		
-		return resp.build();
+		if (key == "propensos") {
+			if (card.getName() == null || "".equals(card.getName()))
+				throw new BadRequestException("The name of the card must not be null");
+	
+			repository.addCard(card);
+	
+			// Builds the response. Returns the Card's uri the has just been added.
+			UriBuilder ub = uriInfo.getAbsolutePathBuilder().path(this.getClass(), "get");
+			URI uri = ub.build(card.getId());
+			ResponseBuilder resp = Response.created(uri);
+			resp.entity(card);		
+			return resp.build();}
+		else {
+			throw new BadRequestException("You are not authorized to access this operation");
+		}
 	}
 	
 	
 	@PUT
 	@Consumes("application/json")
-	public Response updateCard(Card card) {
+	public Response updateCard(Card card, @QueryParam("key") String key) {
 		
-		Card oldCard = repository.getCard(card.getId());
-		
-		if (oldCard == null) {
-			throw new NotFoundException("The card with id="+ card.getId() +" was not found");			
+		if (key == "propensos") {
+			
+			Card oldCard = repository.getCard(card.getId());
+			
+			if (oldCard == null) {
+				throw new NotFoundException("The card with id="+ card.getId() +" was not found");			
+			}
+			
+			if (card.getId() == null)
+				throw new BadRequestException("The card must have an id.");
+			
+			// Update name
+			if (card.getName()!=null)
+				oldCard.setName(card.getName());
+			
+			// Update suit
+			if (card.getSuit()!=null)
+				oldCard.setSuit(card.getSuit());
+			
+			// Update upright
+			if (card.getUpright()!=null)
+				oldCard.setUpright(card.getUpright());
+			
+			// Update reversed
+			if (card.getReversed()!=null)
+				oldCard.setReversed(card.getReversed());
 		}
 		
-		if (card.getId() == null)
-			throw new BadRequestException("The card must have an id.");
-		
-		// Update name
-		if (card.getName()!=null)
-			oldCard.setName(card.getName());
-		
-		// Update suit
-		if (card.getSuit()!=null)
-			oldCard.setSuit(card.getSuit());
-		
-		// Update upright
-		if (card.getUpright()!=null)
-			oldCard.setUpright(card.getUpright());
-		
-		// Update reversed
-		if (card.getReversed()!=null)
-			oldCard.setReversed(card.getReversed());
-	
+		else {
+			throw new BadRequestException("You are not authorized to access this operation");
+		}
 		return Response.noContent().build();
 	}
 	
 	@DELETE
 	@Path("/{id}")
-	public Response removeCard(@PathParam("id") String cardId) {
-		Card Cardremoved = repository.getCard(cardId);
-		
-		if (Cardremoved == null)
-			throw new NotFoundException("The card with id="+ cardId +" was not found");
-		else
-			repository.deleteCard(cardId);
+	public Response removeCard(@PathParam("id") String cardId, @QueryParam("key") String key) {
+		if (key == "propensos") {
+			Card Cardremoved = repository.getCard(cardId);
+			
+			if (Cardremoved == null)
+				throw new NotFoundException("The card with id="+ cardId +" was not found");
+			else
+				repository.deleteCard(cardId);
+		}
+		else {
+			throw new BadRequestException("You are not authorized to access this operation");
+		}
 		
 		return Response.noContent().build();
 	}
