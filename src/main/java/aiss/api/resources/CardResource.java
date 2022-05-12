@@ -143,19 +143,23 @@ public class CardResource {
 	@Consumes("application/json")
 	@Produces("application/json")
 	public Response addCard(@Context UriInfo uriInfo, Card card, @QueryParam("key") String key) {
+		Response response = Response.noContent().build();
+		if (key!=null) {
+			if (key.equals("propensos")) {
+				if (card.getName() == null || "".equals(card.getName()))
+					throw new BadRequestException("The name of the card must not be null");
 		
-		if (key.equals("propensos")) {
-			if (card.getName() == null || "".equals(card.getName()))
-				throw new BadRequestException("The name of the card must not be null");
-	
-			repository.addCard(card);
-	
-			// Builds the response. Returns the Card's uri the has just been added.
-			UriBuilder ub = uriInfo.getAbsolutePathBuilder().path(this.getClass(), "get");
-			URI uri = ub.build(card.getId());
-			ResponseBuilder resp = Response.created(uri);
-			resp.entity(card);		
-			return resp.build();}
+				repository.addCard(card);
+		
+				// Builds the response. Returns the Card's uri the has just been added.
+				UriBuilder ub = uriInfo.getAbsolutePathBuilder().path(this.getClass(), "get");
+				URI uri = ub.build(card.getId());
+				ResponseBuilder resp = Response.created(uri);
+				resp.entity(card);	
+				response = resp.build();
+			} 
+			return response;
+		}
 		else {
 			throw new BadRequestException("You are not authorized to access this operation");
 		}
