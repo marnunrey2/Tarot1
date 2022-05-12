@@ -97,7 +97,7 @@ public class SpreadResource {
 	}
 	
 	@GET
-	@Path("/{id}/getCards")
+	@Path("/{id}/CardsOfSpread")
 	@Produces("application/json")
 	public List<String> getCards(@PathParam("id") String id) {
 		
