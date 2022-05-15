@@ -32,7 +32,7 @@ import aiss.model.CustomCard;
 import aiss.model.repository.MapSpreadRepository;
 import aiss.model.repository.SpreadRepository;
 
-@Path("/custom")
+@Path("/customs")
 public class CustomCardResource {
 
 public static CustomCardResource _instance=null;
@@ -52,30 +52,48 @@ public static CustomCardResource getInstance()
 
 @GET
 @Produces("application/json")
-public static Collection<CustomCard> getAll(@QueryParam("order") String order, @QueryParam("suit") String suit, @QueryParam("name") String name,@QueryParam("limit") Integer limit, @QueryParam("offset") Integer offset)
+public static Collection<CustomCard> getAll(@QueryParam("order") String order, @QueryParam("suit") String suit, 
+		@QueryParam("name") String name, @QueryParam("offset") Integer offset, @QueryParam("limit") Integer limit)
 {
     List<CustomCard> result = new ArrayList<CustomCard>();
     
-	
-    for (CustomCard card: repository.getAllCustomCards()) {
-        if (suit != null && name == null) {
-            if (card.getSuit().toString().equals(suit)) {
-                result.add(card);
-            } 
-        }
-        if (name != null && suit == null) {
-        	if (card.getName().contains(name)) {
-        		result.add(card);
-        		break;
-        	}
-        }
-        if (name != null && suit != null) {
-        	throw new NotFoundException("Use one parameter only");	
-        }
+    if (suit != null || name != null) {
+	    for (CustomCard card: repository.getAllCustomCards()) {
+	        if (suit != null && name == null) {
+	            if (card.getSuit().toString().equals(suit)) {
+	                result.add(card);
+	            } 
+	        }
+	        if (name != null && suit == null) {
+	        	if (card.getName().contains(name)) {
+	        		result.add(card);
+	        		break;
+	        	}
+	        }
+	        if (name != null && suit != null) {
+	        	throw new NotFoundException("Use one parameter only");	
+	        }
+	    }
+	    if (offset != null) {
+	    	result = result.subList(offset, result.size());
+	    }
+	    if (limit != null) {
+	    	result = result.subList(0, limit);
+	    }
     }
     
     if (suit==null && name==null) {
-    	result = repository.getAllCustomCards().stream().collect(Collectors.toList());
+    	if (limit == null && offset == null) {
+    		result = repository.getAllCustomCards().stream().collect(Collectors.toList());
+    	} else {
+    		result = repository.getAllCustomCards().stream().collect(Collectors.toList());
+    		if (offset != null) {
+    			result = result.subList(offset, result.size());
+    		}
+    		if (limit != null) {
+    			result = result.subList(0, limit);
+    		}
+    	}
     }
     
     
@@ -90,8 +108,6 @@ public static Collection<CustomCard> getAll(@QueryParam("order") String order, @
     
     return result;
 }
-
-
 
 
 @GET
