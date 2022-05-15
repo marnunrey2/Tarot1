@@ -33,7 +33,7 @@ import aiss.model.Game;
 import aiss.model.repository.MapSpreadRepository;
 import aiss.model.repository.SpreadRepository;
 
-@Path("/game")
+@Path("/games")
 public class GameResource {
 
 	public static GameResource _instance=null;
