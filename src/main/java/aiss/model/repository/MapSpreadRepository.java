@@ -22,7 +22,8 @@ public class MapSpreadRepository implements SpreadRepository{
 	private static MapSpreadRepository instance=null;
 	private int indexC=0;			// Index to create cards identifiers.
 	private int indexS=0;			// Index to create spreads identifiers.
-	
+	private int indexCC = 0;		// Index to create custom card's identifiers
+	private int indexG = 0;			// Index to create game's identifiers
 	
 	public static MapSpreadRepository getInstance() {
 		if (instance==null) {
@@ -755,7 +756,7 @@ public class MapSpreadRepository implements SpreadRepository{
 	
 	@Override
 	public void addCustomCard(CustomCard c) {
-		String id = "cc" + indexC++;
+		String id = "cc" + indexCC++;
 		c.setId(id);
 		customMap.put(id, c);
 		
@@ -792,7 +793,7 @@ public class MapSpreadRepository implements SpreadRepository{
 	
 	@Override
 	public void addGame(Game g) {
-		String id = "g" + indexC++;
+		String id = "g" + indexG++;
 		g.setId(id);
 		gameMap.put(id, g);
 		
