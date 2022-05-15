@@ -52,10 +52,11 @@ public static CustomCardResource getInstance()
 
 @GET
 @Produces("application/json")
-public static Collection<CustomCard> getAll(@QueryParam("order") String order, @QueryParam("suit") String suit, @QueryParam("name") String name)
+public static Collection<CustomCard> getAll(@QueryParam("order") String order, @QueryParam("suit") String suit, @QueryParam("name") String name,@QueryParam("limit") Integer limit, @QueryParam("offset") Integer offset)
 {
     List<CustomCard> result = new ArrayList<CustomCard>();
-
+    
+	
     for (CustomCard card: repository.getAllCustomCards()) {
         if (suit != null && name == null) {
             if (card.getSuit().toString().equals(suit)) {
@@ -89,6 +90,8 @@ public static Collection<CustomCard> getAll(@QueryParam("order") String order, @
     
     return result;
 }
+
+
 
 
 @GET
