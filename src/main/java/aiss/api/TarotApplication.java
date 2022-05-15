@@ -6,6 +6,8 @@ import java.util.Set;
 import javax.ws.rs.core.Application;
 import aiss.api.resources.SpreadResource;
 import aiss.api.resources.CardResource;
+import aiss.api.resources.CustomCardResource;
+import aiss.api.resources.GameResource;
 
 
 public class TarotApplication extends Application {
@@ -18,6 +20,8 @@ public class TarotApplication extends Application {
 
 		singletons.add(SpreadResource.getInstance());
 		singletons.add(CardResource.getInstance());
+		singletons.add(GameResource.getInstance());
+		singletons.add(CustomCardResource.getInstance());
 	}
 
 	@Override
@@ -30,3 +34,4 @@ public class TarotApplication extends Application {
 		return singletons;
 	}
 }
+
