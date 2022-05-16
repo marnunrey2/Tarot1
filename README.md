@@ -1,30 +1,29 @@
-# Implementación de una API REST 
+# TarotAPI
 
-Práctica 5 de la asignatura AISS
 
-La API REST estará formada por dos recursos que permitirán manipular listas de reproducción y canciones respectivamente. 
+The API REST is formed by 4 resources that allow us to make a card spread with both traditional tarot cards and your own customized cards, as well as playing some games with them.
 
-El contrato de servicios de listas de reproducción se detalla a continuación. No todas las opciones han sido implementadas en el código proporcionado. El objetivo de esta práctica es se implementen todos los métodos necesarios para que la API funcione como se detalla a continuación. 
 
-### Recurso Card ###
+### Card resource ###
 | HTTP  | URI | Descripción |
 | ------------- | ------------- | ------------- |
-| GET |  /Card | Devuelve todas las canciones de la aplicación. •	Es posible ordenar las canciones por el álbum o el artista con el parámetro de query “order”, que acepta los valores “album”, “-album”, “artist” o “-artist”. •	También es posible filtrar las canciones devueltas con el parámetro de query “q”, que devuelve aquellas canciones cuyo título, álbum o artista contengan la cadena enviada (ignorando mayúsculas y minúsculas).|
-| GET | /Card/{CardId}  |  Devuelve la canción con id=CardId. Si la canción no existe devuelve un “404 Not Found”. |
-| POST | /Card | Añade una nueva canción cuyos datos se pasan en el cuerpo de la petición en formato JSON (no se debe pasar id, se genera automáticamente). Si el nombre de la canción no es válido (null o vacío) devuelve un error “400 Bad Request”. Si se añade satisfactoriamente, devuelve “201 Created” con la referencia a la URI y el contenido de la canción. |
-| PUT | /Card  | Actualiza la canción cuyos datos se pasan en el cuerpo de la petición en formato JSON (deben incluir el id de la canción). Si la canción no existe, devuelve un “404 Not Found”. Si se realiza correctamente, devuelve “204 No Content”. |
-| DELETE | /Card/{CardId}  |  Elimina la canción con id=CardId. Si la canción no existe, devuelve un “404 Not Found”. Si se realiza correctamente, devuelve “204 No Content”.|
+| GET |  /cards | Returns all the cards available. •	It is possible to order them with the query "order" depending on name, -name, suit and -suit •	It is also possible to filter them by the suit with the query "suit" depending on Major Arcana or Minor Arcana • Finally is possibloe to filter them by the name with the query "name" |
+| GET | /cards/{id}  |  Return the card with id=CardId. If it does not exist it returns “404 Not Found”. |
+| GET | /cards/dailyCard  |  Returns the card of the day, so we have the card that would be predicting our day. |
+| POST | /cards| Add a new card, whose attributes have to be specified in the body of type JSON (not the id which is automatically generated). To add a card a password is needed bacause is is not intended for a non-admin user to create traditional tarot cards . If it is correctly added, it returns “201 Created” with a reference to the URI and the new Card body|
+| PUT | /cards  | Updates the card with the attributes specified in the JSON body (card id must be included). To update a card a password is needed bacause is is not intended for a non-admin user to update traditional tarot cards . If the card does not exists the response returns “404 Not Found”. If it is corrected done it returns “204 No Content”. |
+| DELETE | /cards/{id}  |  Deletes the card with the same id. If the card does not exist it returns “404 Not Found”. If the card is correctly deleted it returns “204 No Content”.|
 
-Cada **canción** tiene un identificador, _título, nombre del artista, álbum y año_. La representación JSON del recurso es:
+Each **card** has an id, name, suit, upright description and reversed description. The structure of the JSON resource is:
 
 ```cpp
-{
-	"id":"s3",
-	"title":"Smell Like Teen Spirit",
-	"artist":"Nirvana",
-	"album":"Nevermind",
-	"year":"1991"
-}
+ {
+        "id": "c31",
+        "name": "Ten of Cups",
+        "suit": "Minor Arcana-Cups",
+        "upright": "Harmony, reunions, security, domestic bliss, found family",
+        "reversed": "Dysfunctional family, broken home, instability, conflict, neglect"
+ }
 ```
 
 
