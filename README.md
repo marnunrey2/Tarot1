@@ -1,11 +1,12 @@
-# TarotAPI
+# TarotAPI 
+
 
 
 The API REST is formed by 4 resources that allow us to make a card spread with both traditional tarot cards and your own customized cards, as well as playing some games with them.
 
 
 ### Card resource ###
-| HTTP  | URI | Descripción |
+| HTTP  | URI | Description |
 | ------------- | ------------- | ------------- |
 | GET |  /cards | Returns all the cards available. •	It is possible to order them with the query "order" depending on name, -name, suit and -suit •	It is also possible to filter them by the suit with the query "suit" depending on Major Arcana or Minor Arcana • Finally is possibloe to filter them by the name with the query "name" |
 | GET | /cards/{id}  |  Return the card with id=CardId. If it does not exist it returns “404 Not Found”. |
@@ -27,42 +28,28 @@ Each **card** has an id, name, suit, upright description and reversed descriptio
 ```
 
 
-### Recurso spread ###
-| HTTP  | URI | Descripción |
+### Spread resource ###
+| HTTP  | URI | Description |
 | ------------- | ------------- | ------------- |
-| GET | /lists  | Ver todas las listas de reproducción existentes. •	Es posible ordenar las listas por nombre con el parámetro de query “order”, que solo acepta dos valores, “name” o “-name”. •	También es posible filtrar las listas devueltas con dos parámetros de query: “isEmpty”, que devuelve listas sin canciones si vale “true” o listas con canciones si vale “false”; “name”, que devuelve las listas cuyo nombre coincida exactamente con el valor del parámetro. |
-| GET | /lists/{spreadId} | Devuelve la lista con id=spreadId. Si la lista no existe devuelve un “404 Not Found”. |
-| POST | /lists | Añadir una nueva lista de reproducción. Los datos de la lista (nombre y descripción) se proporcionan en el cuerpo de la petición en formato JSON. Las canciones de la lista no se pueden incluir aquí, para ello se debe usar  la operación POST específica para añadir una canción a una lista (a continuación). Si el nombre de la lista no es válido (nulo o vacío), o se intenta crear una lista con canciones, devuelve un error “400 Bad Request”. Si se añade satisfactoriamente, devuelve “201 Created” con la referencia a la URI y el contenido de la lista. |
-| PUT | /lists | Actualiza la lista cuyos datos se pasan en el cuerpo de la petición en formato JSON (deben incluir el id de la lista).  Si la lista no existe, devuelve un “404 Not Found”. Si se intenta actualizar las canciones de la lista, devuelve un error “400 Bad Request”. Para actualizar las canciones se debe usar el recurso Card mostrado previamente. Si se realiza correctamente, devuelve “204 No Content”. |
-| DELETE | /lists/{spreadId} | Elimina la lista con id=spreadId. Si la lista no existe, devuelve un “404 Not Found”. Si se realiza correctamente, devuelve “204 No Content”. |
-| POST |  /lists/{spreadId}/{CardId} | Añade la canción con id=CardId a la lista con id=spreadId. Si la lista o la canción no existe, devuelve un “404 Not Found”. Si la canción ya está incluida en la lista devuelve un “400 Bad Request”. Si se añade satisfactoriamente, devuelve “201 Created” con la referencia a la URI y el contenido de la lista. |
-| DELETE | /lists/{spreadId}/{CardId}  | Elimina la canción con id=CardId de la lista con id=spreadId. Si la lista o la canción no existe, devuelve un “404 Not Found”. Si se realiza correctamente, devuelve “204 No Content”.|
+| GET | /spreads  | Returns all the spreads available •	It is possible to filter them by name with the query "name" •	It is also possible to order them  with the query "order" which can receive name and -name |
+| GET | /spreads/{id} | Returns the spread with the same id. If it does not exists it returns “404 Not Found”. |
+| GET | /spreads/{id}/CardsOfSpread | Returns the cards of the spread with the specified id|
+| GET | /spreads/{id}/CustomCardsOfSpread | Returns the custom cards of the spread with the specified id|
+| POST | /spreads | Adds a new spread. The body of the JSON has to receive the name, type, description and number of cards(the id is automatically generated). If it is correctly done it returns “201 Created” with the URI reference and the new spread body |
+| PUT | /spreads | Update the spread with the attributes specified in the JSON body (it must include the id of the spread).  If it does not exists it returns “404 Not Found”. If it is correctly updated it returns “204 No Content”. |
+| DELETE | /spreads/{id} | Deletes the spread with the specified id. If the spread does not exists is returns “404 Not Found”. If it is correctly done it returns “204 No Content”. |
 
 
-Una **lista de reproducción** tiene un _identificador, nombre, descripción y un conjunto de canciones_. La representación JSON de este recurso es:
+
+A **spread** has an id, name, type, description, and number of cards. The structure of the JSON resource is:
 
 ```cpp
 {
-	"id":"p5",
-	"name":"AISSspread",
-	"description":"AISS spread",
-	"Cards":[
-		{
-			"id":"s0",
-			"title":"Rolling in the Deep",
-			"artist":"Adele",
-			"album":"21",
-			"year":"2011"
-		},
-
-		{			
-			"id":"s1",
-			"title":"One",
-			"artist":"U2",
-			"album":"Achtung Baby",
-			"year":"1992"
-		}
-		]
+        "id": "s0",
+        "name": "Five-Card Spread",
+        "type": "Daily",
+        "description": "Card 1 represents the present, Card 2 represents the past, Card 3 represents the future, Card 4 shows unseen influences affecting the 			situation, and Card 5 represents the potential for an alternate future",
+        "numCards": 5
 }
 
 ```
