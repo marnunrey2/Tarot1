@@ -80,6 +80,7 @@ Each **custom card** has an id, name, upright description ,reversed description 
 | POST | /games | Adds a new custom card. The body of the JSON has to receive the name, origin, number of players, deck description, rules, number of cards and difficulty (the id is automatically generated). If it is correctly done it returns “201 Created” with the URI reference and the new game body |
 | PUT | /games | Updates the game with the attributes specified in the JSON body (it must include the id of the custom card).  If it does not exists it returns “404 Not Found”. If it is correctly updated it returns “204 No Content”. |
 | DELETE | /games/{id} | Deletes the game with the specified id. If the game does not exists is returns “404 Not Found”. If it is correctly done it returns “204 No Content”. |
+
 Each **game** has an id, name, origin, number of players, deck description, rules, number of cards and difficulty. The structure of the JSON resource is:
 ```
 {
