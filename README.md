@@ -8,7 +8,7 @@ The API REST is formed by 4 resources that allow us to make a card spread with b
 ### Card Resource ###
 | HTTP  | URI | Description |
 | ------------- | ------------- | ------------- |
-| GET |  /cards | Returns all the cards available. •	It is possible to order them with the query "order" depending on name, -name, suit and -suit •	It is also possible to filter them by the suit with the query "suit" depending on Major Arcana or Minor Arcana • Finally is possibloe to filter them by the name with the query "name" |
+| GET |  /cards | Returns all the cards available. •	It is possible to order them with the query "order" depending on name, -name, suit and -suit •	It is also possible to filter them by the suit with the query "suit" depending on Major Arcana Minor Arcana, Cups, Coins, Swords or Wands • Finally it is possible to filter them by the name with the query "name" |
 | GET | /cards/{id}  |  Return the card with id=CardId. If it does not exist it returns “404 Not Found”. |
 | GET | /cards/dailyCard  |  Returns the card of the day, so we have the card that would be predicting our day. |
 | POST | /cards| Add a new card, whose attributes have to be specified in the body of type JSON (not the id which is automatically generated). To add a card a password is needed bacause is is not intended for a non-admin user to create traditional tarot cards . If it is correctly added, it returns “201 Created” with a reference to the URI and the new Card body|
