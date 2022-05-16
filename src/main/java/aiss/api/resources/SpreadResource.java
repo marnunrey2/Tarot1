@@ -121,6 +121,26 @@ public class SpreadResource {
 		return cards;
 	}
 	
+	@GET
+	@Path("/{id}/CustomCardsOfSpread")
+	@Produces("application/json")
+	public List<String> getCustomCards(@PathParam("id") String id){
+		List<String> customCards = new ArrayList<>();
+		customCards.add(repository.getSpread(id).getDescription());
+		for(int i = 0; i < repository.getSpread(id).getNumCards(); i++) {
+			Double rand = Math.random()*repository.getAllCustomCards().size();
+			Double randDirection = Math.random()*2;
+			Integer randInt = rand.intValue();
+			Integer randDirectionInt = randDirection.intValue();
+			String cardId = "cc" + randInt.toString();
+			if(randDirectionInt ==0) {
+				customCards.add((i+1) + "." + repository.getCustomCard(cardId).getName() + "(Reversed): " + repository.getCustomCard(cardId).getReversed());
+			}else {
+				customCards.add((i+1) + "." + repository.getCustomCard(cardId).getName() + "(Upright): " + repository.getCustomCard(cardId).getUpright());
+			}
+		}
+		return customCards;
+	}
 	
 	@POST
 	@Consumes("application/json")
