@@ -167,21 +167,17 @@ public class CardResource {
 	
 	@POST
     @Path("/restore")
-    @Consumes("application/json")
     @Produces("application/json")
-    public Response reset(@Context UriInfo uriInfo, @QueryParam("key") String key) {
-        Response response = Response.noContent().build();
+    public Response reset(@QueryParam("key") String key) {
+		Response response = Response.noContent().build();
         if (key!=null) {
         	if (key.equals("propensos")) {
-                for (Card c : MapSpreadRepository.getInstance().resetCards()) {
-                    repository.addCard(c);
-                }
+        		getInstance();
             } 
+        	return response;
         } else {
             throw new BadRequestException("You are not authorized to access this operation");
         }
-        
-        return response;
     }
 	
 	
