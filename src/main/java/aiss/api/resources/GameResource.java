@@ -85,7 +85,7 @@ public class GameResource {
 	        }
 	        
 	        if (name != null && level != null || name != null && origin != null) {
-	        	throw new NotFoundException("Name parameter must be used alone");	
+	        	throw new BadRequestException("Name parameter must be used alone");	
 	        }
 	    }
 	    

@@ -83,14 +83,11 @@ public class CardResource {
         if (order != null) {
         	if (order.equals("name")) {
                 Collections.sort(result, new ComparatorName());
-            } 
-        	else if (order.equals("suit")) {
+            } else if (order.equals("suit")) {
             	Collections.sort(result, new ComparatorSuit());
-            }
-        	if (order.equals("-name")) {
+            } else if (order.equals("-name")) {
                 Collections.sort(result, new ComparatorNameReversed());
-            } 
-        	else if (order.equals("-suit")) {
+            } else if (order.equals("-suit")) {
                 Collections.sort(result, new ComparatorSuitReversed());
             }
         }
