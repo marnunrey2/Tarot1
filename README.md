@@ -5,7 +5,7 @@
 The API REST is formed by 4 resources that allow us to make a card spread with both traditional tarot cards and your own customized cards, as well as playing some games with them.
 
 
-### Card resource ###
+### Card Resource ###
 | HTTP  | URI | Description |
 | ------------- | ------------- | ------------- |
 | GET |  /cards | Returns all the cards available. •	It is possible to order them with the query "order" depending on name, -name, suit and -suit •	It is also possible to filter them by the suit with the query "suit" depending on Major Arcana or Minor Arcana • Finally is possibloe to filter them by the name with the query "name" |
@@ -28,7 +28,7 @@ Each **card** has an id, name, suit, upright description and reversed descriptio
 ```
 
 
-### Spread resource ###
+### Spread Resource ###
 | HTTP  | URI | Description |
 | ------------- | ------------- | ------------- |
 | GET | /spreads  | Returns all the spreads available •	It is possible to filter them by name with the query "name" •	It is also possible to order them  with the query "order" which can receive name and -name |
