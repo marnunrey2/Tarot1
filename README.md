@@ -2,13 +2,13 @@
 
 
 
-The API REST is formed by 4 resources that allow us to make a card spread with both traditional tarot cards and your own customized cards, as well as playing some games with them, or obtain a card that represents your day.
+The API REST is formed by 4 resources that allow us to make a card spread with both traditional tarot cards and your own customized cards, as well as playing some games with them.
 
 
 ### Card Resource ###
 | HTTP  | URI | Description |
 | ------------- | ------------- | ------------- |
-| GET |  /cards | Returns all the cards available. •	It is possible to order them with the query "order" depending on name, -name, suit and -suit •	It is also possible to filter them by the suit with the query "suit" depending on Major Arcana Minor Arcana, Cups, Coins, Swords or Wands • Finally it is possible to filter them by the name with the query "name" |
+| GET |  /cards | Returns all the cards available. •	It is possible to order them with the query "order" depending on name, -name, suit and -suit •	It is also possible to filter them by the suit with the query "suit" depending on Major Arcana or Minor Arcana • Finally is possibloe to filter them by the name with the query "name" |
 | GET | /cards/{id}  |  Return the card with id=CardId. If it does not exist it returns “404 Not Found”. |
 | GET | /cards/dailyCard  |  Returns the card of the day, so we have the card that would be predicting our day. |
 | POST | /cards| Add a new card, whose attributes have to be specified in the body of type JSON (not the id which is automatically generated). To add a card a password is needed bacause is is not intended for a non-admin user to create traditional tarot cards . If it is correctly added, it returns “201 Created” with a reference to the URI and the new Card body|
@@ -53,3 +53,11 @@ A **spread** has an id, name, type, description, and number of cards. The struct
 }
 
 ```
+### CustomCard Resource ###
+| HTTP  | URI | Description |
+| ------------- | ------------- | ------------- |
+| GET | /customs  | Returns all the custom cards avilable •	It is possible to filter them by name with the query "name"• Also we can filter by the suit with the query "suit" •	It is also possible to order them  with the query "order" which can receive name and -name • Finally we can also put a limit as well as an offset for filtering the results|
+| GET | /customs/{id} | Returns the custom card with the same id. If it does not exists it returns “404 Not Found”. |
+| POST | /customs | Adds a new custom card. The body of the JSON has to receive the name, upright description, reversed description and suit(the id is automatically generated). If it is correctly done it returns “201 Created” with the URI reference and the new custom card body |
+| PUT | /customs | Update the custom card with the attributes specified in the JSON body (it must include the id of the custom card).  If it does not exists it returns “404 Not Found”. If it is correctly updated it returns “204 No Content”. |
+| DELETE | /customs/{id} | Deletes the custom card with the specified id. If the custom card does not exists is returns “404 Not Found”. If it is correctly done it returns “204 No Content”. |
