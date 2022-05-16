@@ -53,7 +53,8 @@ public class GameResource {
 	
 	@GET
 	@Produces("application/json")
-	public static Collection<Game> getAll(@QueryParam("order") String order, @QueryParam("players") Integer players,@QueryParam("level") String level, @QueryParam("origin") String origin, @QueryParam("name") String name)
+	public static Collection<Game> getAll(@QueryParam("order") String order, @QueryParam("players") Integer players,
+			@QueryParam("level") String level, @QueryParam("origin") String origin, @QueryParam("name") String name)
 	{
 	    List<Game> result = new ArrayList<Game>();
 	
