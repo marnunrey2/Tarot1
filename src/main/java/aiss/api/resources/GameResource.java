@@ -64,26 +64,22 @@ public class GameResource {
 	                result.add(game);
 	            } 
 	        }
-	        
 	        if (origin != null && name == null) {
 	            if (game.getOrigin().equals(origin)) {
 	                result.add(game);
 	            } 
-	        }
-	        
+	        }	        
 	        if (players != null && name == null) {
 	            if (game.getNumPlayers().equals(players)) {
 	                result.add(game);
 	            } 
-	        }
-	        
+	        }	        
 	        if (name != null && level == null && origin == null) {
 	        	if (game.getName().contains(name)) {
 	        		result.add(game);
 	        		break;
 	        	}
-	        }
-	        
+	        }	        
 	        if (name != null && level != null || name != null && origin != null) {
 	        	throw new BadRequestException("Name parameter must be used alone");	
 	        }
@@ -91,20 +87,16 @@ public class GameResource {
 	    
 	    if (level==null && name==null && origin==null) {
 	    	result = repository.getAllGames().stream().collect(Collectors.toList());
-	    }
-	    
+	    }	    
 	    
 	    if (order != null) {
 	    	if (order.equals("name")) {
 	            Collections.sort(result, new ComparatorGameName());
-	        } 
-	    	if (order.equals("-name")) {
+	        } else if (order.equals("-name")) {
 	            Collections.sort(result, new ComparatorGameNameReversed());
-	        }
-	    	if (order.equals("origin")) {
+	        } else if (order.equals("origin")) {
 	            Collections.sort(result, new ComparatorGameOrigin());
-	        } 
-	    	if (order.equals("-origin")) {
+	        } else if (order.equals("-origin")) {
 	            Collections.sort(result, new ComparatorGameOriginReversed());
 	        } 
 	    }
@@ -131,8 +123,8 @@ public class GameResource {
 	@POST
 	@Consumes("application/json")
 	@Produces("application/json")
-	public Response addGame(@Context UriInfo uriInfo, Game game) {
-		
+	public Response addGame(@Context UriInfo uriInfo, Game game) 
+	{
 		if (game.getName() == null || "".equals(game.getName()))
 			throw new BadRequestException("The name of the card must not be null");
 	
@@ -150,8 +142,8 @@ public class GameResource {
 	
 	@PUT
 	@Consumes("application/json")
-	public Response updateGame(Game game) {
-		
+	public Response updateGame(Game game) 
+	{
 		Game oldGame = repository.getGame(game.getId());
 		
 		if (oldGame == null) {
@@ -174,27 +166,28 @@ public class GameResource {
 			oldGame.setDifficulty(game.getDifficulty());
 		
 		// Update numPlayers
-			if (game.getNumPlayers()!=null)
-				oldGame.setNumPlayers(game.getNumPlayers());
+		if (game.getNumPlayers()!=null)
+			oldGame.setNumPlayers(game.getNumPlayers());
 		
 		// Update numCards
 		if (game.getNumCards()!=null)
 			oldGame.setNumCards(game.getNumCards());
 		
 		// Update deck description
-			if (game.getDeckDescription()!=null)
-				oldGame.setDeckDescription(game.getDeckDescription());
+		if (game.getDeckDescription()!=null)
+			oldGame.setDeckDescription(game.getDeckDescription());
 			
 		// Update rules
-				if (game.getRules()!=null)
-					oldGame.setRules(game.getRules());
+		if (game.getRules()!=null)
+			oldGame.setRules(game.getRules());
 	
 		return Response.noContent().build();
 	}
 	
 	@DELETE
 	@Path("/{id}")
-	public Response removeGame(@PathParam("id") String gameId) {
+	public Response removeGame(@PathParam("id") String gameId) 
+	{
 		Game gameRemoved = repository.getGame(gameId);
 		
 		if (gameRemoved == null)

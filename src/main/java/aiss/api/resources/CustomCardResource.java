@@ -107,8 +107,7 @@ public class CustomCardResource {
 	    if (order != null) {
 	    	if (order.equals("name")) {
 	            Collections.sort(result, new ComparatorNameCustom());
-	        } 
-	    	if (order.equals("-name")) {
+	        } else if (order.equals("-name")) {
 	            Collections.sort(result, new ComparatorNameReversedCustom());
 	        } 
 	    }
@@ -135,8 +134,8 @@ public class CustomCardResource {
 	@POST
 	@Consumes("application/json")
 	@Produces("application/json")
-	public Response addCustomCard(@Context UriInfo uriInfo, CustomCard card) {
-		
+	public Response addCustomCard(@Context UriInfo uriInfo, CustomCard card) 
+	{
 		if (card.getName() == null || "".equals(card.getName()))
 			throw new BadRequestException("The name of the card must not be null");
 	
@@ -154,8 +153,8 @@ public class CustomCardResource {
 	
 	@PUT
 	@Consumes("application/json")
-	public Response updateCustomCard(CustomCard card) {
-		
+	public Response updateCustomCard(CustomCard card) 
+	{
 		CustomCard oldCard = repository.getCustomCard(card.getId());
 		
 		if (oldCard == null) {
@@ -186,7 +185,8 @@ public class CustomCardResource {
 	
 	@DELETE
 	@Path("/{id}")
-	public Response removeCustomCard(@PathParam("id") String cardId) {
+	public Response removeCustomCard(@PathParam("id") String cardId) 
+	{
 		CustomCard Cardremoved = repository.getCustomCard(cardId);
 		
 		if (Cardremoved == null)

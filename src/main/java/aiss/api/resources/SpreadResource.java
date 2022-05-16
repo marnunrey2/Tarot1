@@ -52,8 +52,8 @@ public class SpreadResource {
 
 	@GET
 	@Produces("application/json")
-	public Collection<Spread> getAll(@QueryParam("name") String name, @QueryParam("order") String order) {
-		
+	public Collection<Spread> getAll(@QueryParam("name") String name, @QueryParam("order") String order) 
+	{
 		List<Spread> result = new ArrayList<Spread>();
 		
 		for(Spread spread: repository.getAllSpreads()) {
@@ -85,8 +85,8 @@ public class SpreadResource {
 	@GET
 	@Path("/{id}")
 	@Produces("application/json")
-	public Spread get(@PathParam("id") String id) {
-		
+	public Spread get(@PathParam("id") String id) 
+	{		
 		Spread list = repository.getSpread(id);
 		
 		if (list == null) {
@@ -99,8 +99,8 @@ public class SpreadResource {
 	@GET
 	@Path("/{id}/cardsOfSpread")
 	@Produces("application/json")
-	public List<String> getCards(@PathParam("id") String id) {
-		
+	public List<String> getCards(@PathParam("id") String id) 
+	{		
 		List<String> cards = new ArrayList<>();
 		cards.add(repository.getSpread(id).getDescription());
 		List<Integer> randomIdList = new ArrayList<>();
@@ -128,10 +128,12 @@ public class SpreadResource {
 	@GET
 	@Path("/{id}/customCardsOfSpread")
 	@Produces("application/json")
-	public List<String> getCustomCards(@PathParam("id") String id){
+	public List<String> getCustomCards(@PathParam("id") String id)
+	{
 		List<String> customCards = new ArrayList<>();
 		customCards.add(repository.getSpread(id).getDescription());
 		List<Integer> randomIdList = new ArrayList<>();
+		
 		for(int i = 0; i < repository.getSpread(id).getNumCards(); i++) {
 			Double randomId = Math.random()*repository.getAllCustomCards().size();
 			Double randDirection = Math.random()*2;
@@ -144,7 +146,7 @@ public class SpreadResource {
 			String cardId = "cc" + randomIdInt.toString();
 			if(randDirectionInt ==0) {
 				customCards.add((i+1) + "." + repository.getCustomCard(cardId).getName() + "(Reversed): " + repository.getCustomCard(cardId).getReversed());
-			}else {
+			} else {
 				customCards.add((i+1) + "." + repository.getCustomCard(cardId).getName() + "(Upright): " + repository.getCustomCard(cardId).getUpright());
 			}
 		}
@@ -154,8 +156,8 @@ public class SpreadResource {
 	@POST
 	@Consumes("application/json")
 	@Produces("application/json")
-	public Response addSpread(@Context UriInfo uriInfo, Spread spread) {
-		
+	public Response addSpread(@Context UriInfo uriInfo, Spread spread) 
+	{		
 		if (spread.getName() == null || "".equals(spread.getName()))
 			throw new BadRequestException("The name of the spread must not be null");
 		
@@ -173,8 +175,8 @@ public class SpreadResource {
 	
 	@PUT
 	@Consumes("application/json")
-	public Response updateSpread(Spread spread) {
-		
+	public Response updateSpread(Spread spread) 
+	{		
 		Spread oldspread = repository.getSpread(spread.getId());
 		if (oldspread == null) {
 			throw new NotFoundException("The spread with id="+ spread.getId() +" was not found");			
@@ -201,7 +203,8 @@ public class SpreadResource {
 	
 	@DELETE
 	@Path("/{id}")
-	public Response removeSpread(@PathParam("id") String id) {
+	public Response removeSpread(@PathParam("id") String id) 
+	{
 		Spread toberemoved=repository.getSpread(id);
 		if (toberemoved == null)
 			throw new NotFoundException("The spread with id="+ id +" was not found");

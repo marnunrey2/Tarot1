@@ -130,7 +130,6 @@ public class CardResource {
 				dailyCard = card.getName()+ "(Reversed): " + card.getReversed();
 				break;
 			}
-			
 		}
 		return dailyCard;
 	}
@@ -139,7 +138,8 @@ public class CardResource {
 	@POST
 	@Consumes("application/json")
 	@Produces("application/json")
-	public Response addCard(@Context UriInfo uriInfo, Card card, @QueryParam("key") String key) {
+	public Response addCard(@Context UriInfo uriInfo, Card card, @QueryParam("key") String key) 
+	{
 		Response response = Response.noContent().build();
 		if (key!=null) {
 			if (key.equals("propensos")) {
@@ -154,7 +154,9 @@ public class CardResource {
 				ResponseBuilder resp = Response.created(uri);
 				resp.entity(card);	
 				response = resp.build();
-			} 
+			} else {
+				throw new BadRequestException("Wrong password");
+			}
 			return response;
 		}
 		else {
@@ -165,12 +167,15 @@ public class CardResource {
 	@POST
     @Path("/restore")
     @Produces("application/json")
-    public Response reset(@QueryParam("key") String key) {
+    public Response reset(@QueryParam("key") String key) 
+	{
 		Response response = Response.noContent().build();
         if (key!=null) {
         	if (key.equals("propensos")) {
         		getInstance();
-            } 
+            } else {
+				throw new BadRequestException("Wrong password");
+			}
         	return response;
         } else {
             throw new BadRequestException("You are not authorized to access this operation");
@@ -180,7 +185,8 @@ public class CardResource {
 	
 	@PUT
 	@Consumes("application/json")
-	public Response updateCard(Card card, @QueryParam("key") String key) {
+	public Response updateCard(Card card, @QueryParam("key") String key) 
+	{
 		if (key!=null) {
 			if (key.equals("propensos")) {
 				
@@ -208,6 +214,8 @@ public class CardResource {
 				// Update reversed
 				if (card.getReversed()!=null)
 					oldCard.setReversed(card.getReversed());
+			} else {
+				throw new BadRequestException("Wrong password");
 			}
 		} else {
 			throw new BadRequestException("You are not authorized to access this operation");
@@ -217,7 +225,8 @@ public class CardResource {
 	
 	@DELETE
 	@Path("/{id}")
-	public Response removeCard(@PathParam("id") String cardId, @QueryParam("key") String key) {
+	public Response removeCard(@PathParam("id") String cardId, @QueryParam("key") String key) 
+	{
 		if (key!=null) {
 			if (key.equals("propensos")) {
 				Card Cardremoved = repository.getCard(cardId);
@@ -226,11 +235,12 @@ public class CardResource {
 					throw new NotFoundException("The card with id="+ cardId +" was not found");
 				else
 					repository.deleteCard(cardId);
-			}
+			} else {
+				throw new BadRequestException("Wrong password");
+			}			
 		} else {
 			throw new BadRequestException("You are not authorized to access this operation");
 		}
-		
 		return Response.noContent().build();
 	}
 }
