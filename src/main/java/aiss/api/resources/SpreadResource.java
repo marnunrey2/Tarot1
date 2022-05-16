@@ -97,42 +97,51 @@ public class SpreadResource {
 	}
 	
 	@GET
-	@Path("/{id}/CardsOfSpread")
+	@Path("/{id}/cardsOfSpread")
 	@Produces("application/json")
 	public List<String> getCards(@PathParam("id") String id) {
 		
 		List<String> cards = new ArrayList<>();
 		cards.add(repository.getSpread(id).getDescription());
+		List<Integer> randomIdList = new ArrayList<>();
 		
 		for (int i=0; i<repository.getSpread(id).getNumCards(); i++) {
-			Double rand = Math.random()*78;
+			Double randomId = (Math.random()*78);
 			Double randDirection = Math.random()*2;
-			Integer randInt = rand.intValue();
+			Integer randomIdInt = randomId.intValue();
+			while (randomIdList.contains(randomIdInt)) {
+				randomIdInt = (int)(Math.random()*78);
+			}
+			randomIdList.add(randomIdInt);
 			Integer randDirectionInt = randDirection.intValue();
-			String cardId = "c" + randInt.toString();
+			String cardId = "c" + randomIdInt.toString();
 			if (randDirectionInt==0) {
 				cards.add((i+1) + ". " + repository.getCard(cardId).getName() + " (Reversed): " + repository.getCard(cardId).getReversed());
 			}
 			else {
 				cards.add((i+1) + ". " + repository.getCard(cardId).getName() + " (Upright): " + repository.getCard(cardId).getUpright());
 			}
-			
 		}
 		return cards;
 	}
 	
 	@GET
-	@Path("/{id}/CustomCardsOfSpread")
+	@Path("/{id}/customCardsOfSpread")
 	@Produces("application/json")
 	public List<String> getCustomCards(@PathParam("id") String id){
 		List<String> customCards = new ArrayList<>();
 		customCards.add(repository.getSpread(id).getDescription());
+		List<Integer> randomIdList = new ArrayList<>();
 		for(int i = 0; i < repository.getSpread(id).getNumCards(); i++) {
-			Double rand = Math.random()*repository.getAllCustomCards().size();
+			Double randomId = Math.random()*repository.getAllCustomCards().size();
 			Double randDirection = Math.random()*2;
-			Integer randInt = rand.intValue();
+			Integer randomIdInt = randomId.intValue();
+			while (randomIdList.contains(randomIdInt)) {
+				randomIdInt = (int)(Math.random()*repository.getAllCustomCards().size());
+			}
+			randomIdList.add(randomIdInt);
 			Integer randDirectionInt = randDirection.intValue();
-			String cardId = "cc" + randInt.toString();
+			String cardId = "cc" + randomIdInt.toString();
 			if(randDirectionInt ==0) {
 				customCards.add((i+1) + "." + repository.getCustomCard(cardId).getName() + "(Reversed): " + repository.getCustomCard(cardId).getReversed());
 			}else {
