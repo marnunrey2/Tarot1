@@ -61,3 +61,14 @@ A **spread** has an id, name, type, description, and number of cards. The struct
 | POST | /customs | Adds a new custom card. The body of the JSON has to receive the name, upright description, reversed description and suit(the id is automatically generated). If it is correctly done it returns “201 Created” with the URI reference and the new custom card body |
 | PUT | /customs | Update the custom card with the attributes specified in the JSON body (it must include the id of the custom card).  If it does not exists it returns “404 Not Found”. If it is correctly updated it returns “204 No Content”. |
 | DELETE | /customs/{id} | Deletes the custom card with the specified id. If the custom card does not exists is returns “404 Not Found”. If it is correctly done it returns “204 No Content”. |
+
+Each **custom card** has an id, name, upright description ,reversed description and suit. The structure of the JSON resource is:
+```
+{
+        "id": "cc1",
+        "name": "Sponge Bob",
+        "upright": "Careless, dumb decisions, sacandalous, selfish",
+        "reversed": "Educational, obedient, smart decisions",
+        "suit": "characters"
+}
+```
