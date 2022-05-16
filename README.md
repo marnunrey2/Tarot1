@@ -2,7 +2,7 @@
 
 
 
-The API REST is formed by 4 resources that allow us to make a card spread with both traditional tarot cards and your own customized cards, as well as playing some games with them.
+The API REST is formed by 4 resources that allow us to make a card spread with both traditional tarot cards and your own customized cards, as well as playing some games with them, or obtain a card that represents your day.
 
 
 ### Card Resource ###
