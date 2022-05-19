@@ -13,6 +13,7 @@ public interface SpreadRepository {
 	
 	// Cards
 	public void addCard(Card c);
+	public void addCard(String id, Card c);
 	public Collection<Card> getAllCards();
 	public Card getCard(String cardId);
 	public void updateCard(Card c);

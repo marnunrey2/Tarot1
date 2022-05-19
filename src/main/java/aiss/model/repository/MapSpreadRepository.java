@@ -20,7 +20,7 @@ public class MapSpreadRepository implements SpreadRepository{
 	Map<String, CustomCard> customMap;
 	Map<String, Game>  gameMap;
 	private static MapSpreadRepository instance=null;
-	private int indexC=0;			// Index to create cards identifiers.
+	private int indexC=78;			// Index to create cards identifiers.
 	private int indexS=0;			// Index to create spreads identifiers.
 	private int indexCC = 0;		// Index to create custom card's identifiers
 	private int indexG = 0;			// Index to create game's identifiers
@@ -39,478 +39,556 @@ public class MapSpreadRepository implements SpreadRepository{
 		
 		// CREATE CARDS
 		//Major Arcana
-		Card card1 = new Card("The Fool",
+		Card card1 = new Card("c0", 
+				 "The Fool",
 				 "Major Arcana",
 				 "Beginnings, possibilities, impulsiveness, inocence, a free spirit",
 				 "Apathy, hesitation, a faluty choice, doldrums, recklessness");
-		addCard(card1);
+		addCard("c0", card1);
 		
-		Card card2 = new Card("The Magician",
+		Card card2 = new Card("c1",
+				 "The Magician",
 				 "Major Arcana",
 				 "Originality, self-confidence, skill, a breakthrough, resourcefulness",
 				 "Insecurity, delay, lack of imagination, colsed doors, manipulation");
-		addCard(card2);
+		addCard("c1", card2);
 		
-		Card card3 = new Card("The High Priestess",
+		Card card3 = new Card("c2",
+				 "The High Priestess",
 				 "Major Arcana",
 				 "Wisdom, intuition, dreams, meandering, an enigma",
 				 "Ignorance, shallowness, lack of trust, a close mind, secrets");
-		addCard(card3);
+		addCard("c2", card3);
 		
-		Card card4 = new Card("The Empress",
+		Card card4 = new Card("c3",
+				 "The Empress",
 				 "Major Arcana",
 				 "Fertility, nurturing, accomplishment, nature, abundance",
 				 "Feeling undesirable, anxiety, lack of concentartion, smothering, selfishness");
-		addCard(card4);
+		addCard("c3", card4);
 		
-		Card card5 = (new Card("The Emperor",
+		Card card5 = (new Card("c4",
+				 "The Emperor",
 				 "Major Arcana",
 				 "Stability, leadership, bravery, bold action, structure",
 				 "Immaturity, pettiness, rigidity, domination, anger"));
-		addCard(card5);
+		addCard("c4", card5);
 		
-		Card card6 = new Card("The Hierophant",
+		Card card6 = new Card("c5",
+				 "The Hierophant",
 				 "Major Arcana",
 				 "Conformity, compassion, social approval, tradition, legacy",
 				 "Bucking Trends, vulnerability, feeling adrift, blind faith");
-		addCard(card6);
+		addCard("c5", card6);
 		
-		Card card7 = new Card("The Lovers",
+		Card card7 = new Card("c6",
+				 "The Lovers",
 				 "Major Arcana",
 				 "Love, harmony, trust, a leap of faith, choice",
 				 "Unreliability, separation, second-guessing, values, conflict");
-		addCard(card7);
+		addCard("c6", card7);
 		
-		Card card8 = new Card("The Chariot",
+		Card card8 = new Card("c7",
+				 "The Chariot",
 				 "Major Arcana",
 				 "A journey, perseverance, rushed decisions, vengeance, victory",
 				 "A lack of direction, floundering, stagnation, willfulness");
-		addCard(card8);
+		addCard("c7", card8);
 		
-		Card card9 = new Card("Strength",
+		Card card9 = new Card("c8",
+				 "Strength",
 				 "Major Arcana",
 				 "Courage, determination, conviction, control, patience",
 				 "Weakness, self-doubt, abuse of power, pride, negligence");
-		addCard(card9);
+		addCard("c8", card9);
 		
-		Card card10 = new Card("The Hermit",
+		Card card10 = new Card("c9",
+				 "The Hermit",
 				 "Major Arcana",
 				 "Instrospection, withdrawal, prudence, insight, meditation",
 				 "Recklessness, hastiness, avoidance, loneliness, rejection");
-		addCard(card10);
+		addCard("c9", card10);
 		
-		Card card11 = new Card("The Wheel of Fortune",
+		Card card11 = new Card("c10",
+				 "The Wheel of Fortune",
 				 "Major Arcana",
 				 "Fortune, an unexpected windfall, karma, destiny, cycles",
 				 "Bad luck, a lack of control, the past, misery, dissapointment");
-		addCard(card11);
+		addCard("c10", card11);
 		
-		Card card12 = new Card("Justice",
+		Card card12 = new Card("c11",
+				 "Justice",
 				 "Major Arcana",
 				 "Harmony, balance, equality, virtue, honor",
 				 "Bias, false accusations, intolerance, abuse, dishonesty");
-		addCard(card12);
+		addCard("c11", card12);
 		
-		Card card13 = new Card("The Hanged Man",
+		Card card13 = new Card("c12",
+				 "The Hanged Man",
 				 "Major Arcana",
 				 "Suspension, restriction, sacrifice, readjustment, improvement",
 				 "Willfulness, useless sacrifice, rushing, thoughtlessness, martyrdom");
-		addCard(card13);
+		addCard("c12", card13);
 		
-		Card card14 = new Card("Death",
+		Card card14 = new Card("c13",
+				 "Death",
 				 "Major Arcana",
 				 "Metamorphosis, evolution, loss, transition, change",
 				 "Stagnation, immobility, stubborness, festering, decay");
-		addCard(card14);
+		addCard("c13", card14);
 		
-		Card card15 = new Card("Temperance",
+		Card card15 = new Card("c14",
+				 "Temperance",
 				 "Major Arcana",
 				 "Moderation, harmony, purpose, good influence, reconciliation",
 				 "Conflict, hostility, frustration, impatience, reclutance");
-		addCard(card15);
+		addCard("c14", card15);
 		
-		Card card16 = new Card("The Devil",
+		Card card16 = new Card("c15",
+				 "The Devil",
 				 "Major Arcana",
 				 "Greed, controversy, violence, strange experiences, addiction",
 				 "Release, enlightenment, power reclaimed, divorce, moving on");
-		addCard(card16);
+		addCard("c15", card16);
 		
-		Card card17 = new Card("The Tower",
+		Card card17 = new Card("c16",
+				 "The Tower",
 				 "Major Arcana",
 				 "Massive change, upheaval, catastrophe, rebuilding, revelation",
 				 "Feeling trapped, delaying disaster, fear of pain, avoidance");
-		addCard(card17);
+		addCard("c16", card17);
 		
-		Card card18 = new Card("The Star",
+		Card card18 = new Card("c17",
+				 "The Star",
 				 "Major Arcana",
 				 "Hope, serenity, inspiration, insight, spirituality",
 				 "Crushed dreams, insecurity, despair, dejection, exhaustion");
-		addCard(card18);
+		addCard("c17", card18);
 		
-		Card card19 = new Card("The Moon",
+		Card card19 = new Card("c18",
+				 "The Moon",
 				 "Major Arcana",
 				 "Trickery, melancholy, anguish, illusion, insecurity",
 				 "Joy, enlightenment, resolution, deception revealed, relief");
-		addCard(card19);
+		addCard("c18", card19);
 		
-		Card card20 = new Card("The Sun",
+		Card card20 = new Card("c19",
+				 "The Sun",
 				 "Major Arcana",
 				 "Satisfaction, accomplishment, joy, luck, vitality",
 				 "Missed oportunities, delays, doubt, fear of missing out, depression");
-		addCard(card20);
+		addCard("c19", card20);
 		
-		Card card21 = new Card("Judgment",
+		Card card21 = new Card("c20",
+				 "Judgment",
 				 "Major Arcana",
 				 "Improvement, forgiveness, a change of perspective, absolution, rebirth",
 				 "Opression, lack of self-awareness, failure, repeated mistakes, self-loathing");
-		addCard(card21);
+		addCard("c20", card21);
 		
-		Card card22 = new Card("The World",
+		Card card22 = new Card("c21",
+				 "The World",
 				 "Major Arcana",
 				 "Completion, recognition, fulfillment, triumph, celebration",
 				 "Imperfection, disappointment, shortcuts, shortsightedness, anxiety");
-		addCard(card22);
+		addCard("c21", card22);
 		
 		//Minor Arcana
  		//Cups
-		Card card23 = new Card("Ace of Cups",
+		Card card23 = new Card("c22",
+				 "Ace of Cups",
 				 "Minor Arcana-Cups",
 				 "Happiness, love, intimacy, new emotions, compassion",
 				 "Relationship problems, depression, sadness, creative block, repression");
-		addCard(card23);
+		addCard("c22", card23);
 		
-		Card card24 = new Card("Two of Cups",
+		Card card24 = new Card("c23",
+				 "Two of Cups",
 				 "Minor Arcana-Cups",
 				 "Happy relationship, equality, partnership, attraction, connection",
 				 "Imbalance, discord, separation, incompatibility, power imbalance");
-		addCard(card24);
+		addCard("c23", card24);
 		
-		Card card25 = new Card("Three of Cups",
+		Card card25 = new Card("c24",
+				 "Three of Cups",
 				 "Minor Arcana-Cups",
 				 "Celebration, friends, indulgence, parties, community",
 				 "Overindulgence, infidelity, disintegrating bonds, gossip, isolation");
-		addCard(card25);
+		addCard("c24", card25);
 		
-		Card card26 = new Card("Four of Cups",
+		Card card26 = new Card("c25",
+				 "Four of Cups",
 				 "Minor Arcana-Cups",
 				 "A lack of awareness, pessimism, daydreaming, lethargy, reevaluation",
 				 "Motivation, opportunity, optimism, restlessness, boredom");
-		addCard(card26);
+		addCard("c25", card26);
 		
-		Card card27 = new Card("Five of Cups",
+		Card card27 = new Card("c26",
+				 "Five of Cups",
 				 "Minor Arcana-Cups",
 				 "Self-pity, guilt, regret, stagnation, depression",
 				 "Moving on, forgiveness, acceptance, finding peace, encouragement");
-		addCard(card27);
+		addCard("c26", card27);
 		
-		Card card28 = new Card("Six of Cups",
+		Card card28 = new Card("c27",
+				 "Six of Cups",
 				 "Minor Arcana-Cups",
 				 "Nostalgia, old friends, simple joys, sharing, childhood",
 				 "The future, letting go, leaving home, rose-tinted glasses");
-		addCard(card28);
+		addCard("c27", card28);
 		
-		Card card29 = new Card("Seven of Cups",
+		Card card29 = new Card("c28",
+				 "Seven of Cups",
 				 "Minor Arcana-Cups",
 				 "Daydreaming, fantasy, decisions, wishful thinking, procrastination",
 				 "Reality, clarity, temptation, confusion, diversion");
-		addCard(card29);
+		addCard("c28", card29);
 		
-		Card card30= new Card("Eight of Cups",
+		Card card30 = new Card("c29",
+				 "Eight of Cups",
 				 "Minor Arcana-Cups",
 				 "Walking away, introspection, escapism, withdrawal, seeking truth",
 				 "Aimlessness, fear of abandonment, depression, settling, hopelessness");
-		addCard(card30);
+		addCard("c29", card30);
 		
-		Card card31 = new Card("Nine of Cups",
+		Card card31 = new Card("c30",
+				 "Nine of Cups",
 				 "Minor Arcana-Cups",
 				 "Dreams realized, fulfillment, pleasure, recognition, triumph",
 				 "Greed, devastation, pessimism, addiction, self-loathing");
-		addCard(card31);
+		addCard("c30", card31);
 		
-		Card card32 = new Card("Ten of Cups",
+		Card card32 = new Card("c31",
+				 "Ten of Cups",
 				 "Minor Arcana-Cups",
 				 "Harmony, reunions, security, domestic bliss, found family",
 				 "Dysfunctional family, broken home, instability, conflict, neglect");
-		addCard(card32);
+		addCard("c31", card32);
 		
-		Card card33 = new Card("Page of Cups",
+		Card card33 = new Card("c32",
+				 "Page of Cups",
 				 "Minor Arcana-Cups",
 				 "Youthfulness, idealism, sensitivity, romance, spirituality",
 				 "Bad news, jealousy, obsession, chilhood problems, immaturity");
-		addCard(card33);
+		addCard("c32", card33);
 		
-		Card card34 = new Card("Knight of Cups",
+		Card card34 = new Card("c33",
+				 "Knight of Cups",
 				 "Minor Arcana-Cups",
 				 "Chivalry, affection, invitations, taking action, meaningful gifts",
 				 "Heartbreak, infidelity, lack of diplomacy, moodiness, pettiness");
-		addCard(card34);
+		addCard("c33", card34);
 		
-		Card card35 = new Card("Queen of Cups",
+		Card card35 = new Card("c34",
+				 "Queen of Cups",
 				 "Minor Arcana-Cups",
 				 "Feminity, warmth, empathy, a counselor, intuition",
 				 "Immaturity, selfishness, smothering, sulking, spite");
-		addCard(card35);
+		addCard("c34", card35);
 		
-		Card card36 = new Card("King of Cups",
+		Card card36 = new Card("c35",
+				 "King of Cups",
 				 "Minor Arcana-Cups",
 				 "Devotion, loyalty, faithfulness, wisdom, generosity",
 				 "Anxiety, lack of caring, control, violence, imbalance");
-		addCard(card36);
+		addCard("c35", card36);
 		
 		//Coins
-		Card card37= new Card("Ace of Coins",
+		Card card37 = new Card("c36",
+				 "Ace of Coins",
 				 "Minor Arcana-Coins",
 				 "New business, money, investments, abundance, security",
 				 "Bad finances, excessive spending, greed, stinginess, poor planing");
-		addCard(card37);
+		addCard("c36", card37);
 		
-		Card card38 = new Card("Two of Coins",
+		Card card38 = new Card("c37",
+				 "Two of Coins",
 				 "Minor Arcana-Coins",
 				 "Multitasking, balance, choice, flexibility, priorization",
 				 "Disoganization, a façade, overwhelm, overextending, financial mess");
-		addCard(card38);
+		addCard("c37", card38);
 		
-		Card card39 = new Card("Three of Coins",
+		Card card39 = new Card("c38",
+				 "Three of Coins",
 				 "Minor Arcana-Coins",
 				 "Studying, growth, collaboration, success, recognition",
 				 "Poor work ethic, apathy, lack pf goals, willfulness");
-		addCard(card39);
+		addCard("c38", card39);
 		
-		Card card40 = new Card("Four of Coins",
+		Card card40 = new Card("c39",
+				 "Four of Coins",
 				 "Minor Arcana-Coins",
 				 "Hoarding, possession, financial stability, materialism, stinginess",
 				 "Gambling, recklessness, letting go, generosity, large purchases");
-		addCard(card40);
+		addCard("c39", card40);
 		
-		Card card41 = new Card("Five of Coins",
+		Card card41 = new Card("c40",
+				 "Five of Coins",
 				 "Minor Arcana-Coins",
 				 "Recession, adversity, isolation, unemployment, ruin",
 				 "Paid debts, improved finances, positive change, acceptance, recovery");
-		addCard(card41);
+		addCard("c40", card41);
 		
-		Card card42 = new Card("Six of Coins",
+		Card card42 = new Card("c41",
+				 "Six of Coins",
 				 "Minor Arcana-Coins",
 				 "Generosity, charity, kindness, value, reward",
 				 "Abuse of power, scams, extortion, gullibility, greed");
-		addCard(card42);
+		addCard("c41", card42);
 		
-		Card card43 = new Card("Seven of Coins",
+		Card card43 = new Card("c42",
+				 "Seven of Coins",
 				 "Minor Arcana-Coins",
 				 "Reward, perseverance, decisions, investment, fruition",
 				 "Shortsightedness, laziness, procrastination, setbacks, delay");
-		addCard(card43);
+		addCard("c42", card43);
 		
-		Card card44 = new Card("Eight of Coins",
+		Card card44 = new Card("c43",
+				 "Eight of Coins",
 				 "Minor Arcana-Coins",
 				 "Craftsmanship, commitment, determination, ambition, concentration",
 				 "Repetition, poor quality, rushing, bad reputation");
-		addCard(card44);
+		addCard("c43", card44);
 		
-		Card card45 = new Card("Nine of Coins",
+		Card card45 = new Card("c44",
+				 "Nine of Coins",
 				 "Minor Arcana-Coins",
 				 "Independence, ancestry, pensions, settling down, financial stability",
 				 "Scams, superficiality, overinvestment, work-obsessed, ungrateful");
-		addCard(card45);
+		addCard("c44", card45);
 		
-		Card card46 = new Card("Ten of Coins",
+		Card card46 = new Card("c45",
+				 "Ten of Coins",
 				 "Minor Arcana-Coins",
 				 "Inheritance, ancetry, pensions, settling down, financial stability",
 				 "Financial disater, disputes, instability, broken traditions");
-		addCard(card46);
+		addCard("c45", card46);
 		
-		Card card47 = new Card("Page of Coins",
+		Card card47 = new Card("c46",
+				 "Page of Coins",
 				 "Minor Arcana-Coins",
 				 "Setting goals, loyalty, positivity, opportunities, manifestation",
 				 "A lack of common sense, immaturity, laziness, apathy");
-		addCard(card47);
+		addCard("c46", card47);
 		
-		Card card48 = new Card("Knight of Coins",
+		Card card48 = new Card("c47",
+				 "Knight of Coins",
 				 "Minor Arcana-Coins",
 				 "Ambition, hard work, persistance, being efficient",
 				 "Impatience, apathy, irresponsability, anxiety");
-		addCard(card48);
+		addCard("c47", card48);
 		
-		Card card49 = new Card("Queen of Coins",
+		Card card49 = new Card("c48",
+				 "Queen of Coins",
 				 "Minor Arcana-Coins",
 				 "A healer, luxury, being grounded, practicality, movement",
 				 "Jealousy, possession, a lack of organization, manipulation");
-		addCard(card49);
+		addCard("c48", card49);
 		
-		Card card50= new Card("King of Coins",
+		Card card50 = new Card("c49",
+				 "King of Coins",
 				 "Minor Arcana-Coins",
 				 "Success, dependability, conservatism, strong will, willing to work",
 				 "Corruption, materialism, ruthlessness, authority, indulgence");
-		addCard(card50);
+		addCard("c49", card50);
 		
 		//Swords
-		Card card51 = new Card("Ace of Swords",
+		Card card51 = new Card("c50",
+				 "Ace of Swords",
 				 "Minor Arcana-Swords",
 				 "New projects, truth, assertiveness, creative thinking, clarity",
 				 "Lack of communication, misinformation, rigidity, confusion");
-		addCard(card51);
+		addCard("c50", card51);
 		
-		Card card52 = new Card("Two of Swords",
+		Card card52 = new Card("c51",
+				 "Two of Swords",
 				 "Minor Arcana-Swords",
 				 "Facing fears, a stalemate, denial, opposition, a precarious position",
 				 "Indecision, lies exposed, delays, overwhelming fears");
-		addCard(card52);
+		addCard("c51", card52);
 		
-		Card card53= new Card("Three of Swords",
+		Card card53 = new Card("c52",
+				 "Three of Swords",
 				 "Minor Arcana-Swords",
 				 "Heartbreak, self-harm, sadness, grief, separation",
 				 "Overcoming grief, optimism, reconcilliation, forgiviness, seeking help");
-		addCard(card53);
+		addCard("c52", card53);
 		
-		Card card54= new Card("Four of Swords",
+		Card card54 = new Card("c53",
+				 "Four of Swords",
 				 "Minor Arcana-Swords",
 				 "Sanctuary, recouping, mediation, passivity, counseling",
 				 "Awakening, healing, returning, burnout, strenth");
-		addCard(card54);
+		addCard("c53", card54);
 		
-		Card card55 = new Card("Five of Swords",
+		Card card55 = new Card("c54",
+				 "Five of Swords",
 				 "Minor Arcana-Swords",
 				 "Surrender, betrayal, bullying, violence, crime",
 				 "Resolutio, compromise, sacrifice, peace, justice");
-		addCard(card55);
+		addCard("c54", card55);
 		
-		Card card56 =new Card("Six of Swords",
+		Card card56 = new Card("c55",
+				 "Six of Swords",
 				 "Minor Arcana-Swords",
 				 "Healing, moving foward, stabiliy, escape, journeys",
 				 "Feeling trapped, instability, canceled travel, abuse, unresolved issues");
-		addCard(card56);
+		addCard("c55", card56);
 		
-		Card card57 = new Card("Seven of Swords",
+		Card card57 = new Card("c56",
+				 "Seven of Swords",
 				 "Minor Arcana-Swords",
 				 "Strategy, cunning, thievery, cheating, manipulation",
 				 "Conscience, confession, getting caught, outsmarted, deception");
-		addCard(card57);
+		addCard("c56", card57);
 		
-		Card card58 = new Card("Eight of Swords",
+		Card card58 = new Card("c57",
+				 "Eight of Swords",
 				 "Minor Arcana-Swords",
 				 "Anxiety, victimhood, feeling trapped, paralysis, crisis",
 				 "Freedom, new perpectives, taking a stand, strenght, healing");
-		addCard(card58);
+		addCard("c57", card58);
 		
-		Card card59 = new Card("Nine of Swords",
+		Card card59 = new Card("c58",
+				 "Nine of Swords",
 				 "Minor Arcana-Swords",
 				 "Anxiety, terror, nightmares, obsession, insomnia",
 				 "Recovery, acceptance, letting go, accepting help, hope");
-		addCard(card59);
+		addCard("c58", card59);
 		
-		Card card60 = new Card("Ten of Swords",
+		Card card60 = new Card("c59",
+				 "Ten of Swords",
 				 "Minor Arcana-Swords",
 				 "Bitterness, betrayal, rock bottom, martyrdom, severing ties",
 				 "Surviving disater, recovery, regeneration, the inevitable");
-		addCard(card60);
+		addCard("c59", card60);
 		
-		Card card61 = new Card("Page of Swords",
+		Card card61 = new Card("c60",
+				 "Page of Swords",
 				 "Minor Arcana-Swords",
 				 "Talkativeness, energy, thoughtfulness, curiosity, truthfulness",
 				 "Bluntness, cynicism, defensiveness, sullenness, all talk");
-		addCard(card61);
+		addCard("c60", card61);
 		
-		Card card62 = new Card("Knight of Swords",
+		Card card62 = new Card("c61",
+				 "Knight of Swords",
 				 "Minor Arcana-Swords",
 				 "Intellect. bravery, confidence, being action-oriented",
 				 "Rudeness, bullying, an inferiority complex, passivity");
-		addCard(card62);
+		addCard("c61", card62);
 		
-		Card card63 = new Card("Queen of Swords",
+		Card card63 = new Card("c62",
+				 "Queen of Swords",
 				 "Minor Arcana-Swords",
 				 "Protection, meaningful criticism, tough love, skepticism, intelligence",
 				 "Bitterness, vindication judgement, malice, pessimism");
-		addCard(card63);
+		addCard("c62", card63);
 		
-		Card card64 = new Card("King of Swords",
+		Card card64 = new Card("c63",
+				 "King of Swords",
 				 "Minor Arcana-Swords",
 				 "Authority, structure, logic, self-discipline, loyalty",
 				 "A dictator, cruelty, violence, oppression, cynicism");
-		addCard(card64);
+		addCard("c63", card64);
 		
 		//Wands
-		Card card65 = new Card("Ace of Wands",
+		Card card65 = new Card("c64",
+				 "Ace of Wands",
 				 "Minor Arcana-Wands",
 				 "Excitement, creativity, a spark, growth, new beginnings",
 				 "Delays, bad news, a creative block, wasted talent");
-		addCard(card65);
+		addCard("c64", card65);
 		
-		Card card66 = new Card("Two of Wands",
+		Card card66 = new Card("c65",
+				 "Two of Wands",
 				 "Minor Arcana-Wands",
 				 "Decisions, travel, business opportunities, future plannig, cooperation",
 				 "Indecision, doubt, fear of the unknown, playing it safe");
-		addCard(card66);
+		addCard("c65", card66);
 		
-		Card card67= new Card("Three of Wands",
+		Card card67 = new Card("c66",
+				 "Three of Wands",
 				 "Minor Arcana-Wands",
 				 "Self-motivation, freedom, reward, romance",
 				 "Returning home, wallowing, frustation, delays");
-		addCard(card67);
+		addCard("c66", card67);
 		
-		Card card68 = new Card("Four of Wands",
+		Card card68 = new Card("c67",
+				 "Four of Wands",
 				 "Minor Arcana-Wands",
 				 "Reunion, success, pride, happiness, family",
 				 "Self-doubt, diaspora, canceled plans, gloom");
-		addCard(card68);
+		addCard("c67", card68);
 		
-		Card card69 = new Card("Five of Wands",
+		Card card69 = new Card("c68",
+				 "Five of Wands",
 				 "Minor Arcana-Wands",
 				 "Rivalry, opponents, disagreement, competition, clashing egos",
 				 "Compromise, peace, harmony, resolution, conflict avoidance");
-		addCard(card69);
+		addCard("c68", card69);
 		
-		Card card70 = new Card("Six of Wands",
+		Card card70 = new Card("c69",
+				 "Six of Wands",
 				 "Minor Arcana-Wands",
 				 "Victory, praise, achievement, reward, fame",
 				 "Ego, pride, disrepute, a fall from grace");
-		addCard(card70);
+		addCard("c69", card70);
 		
-		Card card71 = new Card("Seven of Wands",
+		Card card71 = new Card("c70",
+				 "Seven of Wands",
 				 "Minor Arcana-Wands",
 				 "Endurance, attack, fighting for beliefs, perseverance, mounting a defense",
 				 "Giving up, defeat, timidity, cowardice, overwhelmed");
-		addCard(card71);
+		addCard("c70", card71);
 		
-		Card card72 = new Card("Eight of Wands",
+		Card card72 = new Card("c71",
+				 "Eight of Wands",
 				 "Minor Arcana-Wands",
 				 "Speed, momentum, travel, excitement, results",
 				 "Lethargy, delays, bad news, slowness, frustration");
-		addCard(card72);
+		addCard("c71", card72);
 		
-		Card card73 = new Card("Nine of Wands",
+		Card card73 = new Card("c72",
+				 "Nine of Wands",
 				 "Minor Arcana-Wands",
 				 "Fatigue, persistence, gathering strength, wounds, resilience",
 				 "A stalemate, stubbornness, hesitance, giving in, paranoia");
-		addCard(card73);
+		addCard("c72", card73);
 		
-		Card card74 = new Card("Ten of Wands",
+		Card card74 = new Card("c73",
+				 "Ten of Wands",
 				 "Minor Arcana-Wands",
 				 "Overwhelm, stress, obligation, refusing aide, duty",
 				 "Avoidance, burnout, overcommitting, streched thin, giving up");
-		addCard(card74);
+		addCard("c73", card74);
 		
-		Card card75 = new Card("Page of Wands",
+		Card card75 = new Card("c74",
+				 "Page of Wands",
 				 "Minor Arcana-Wands",
 				 "Playfulness, charisma, discovery, a rogue, enthusiasm",
 				 "Naïvety, petulance, a lack of imagination, pessimism");
-		addCard(card75);
+		addCard("c74", card75);
 		
-		Card card76= new Card("Knight of Wands",
+		Card card76 = new Card("c75",
+				 "Knight of Wands",
 				 "Minor Arcana-Wands",
 				 "Adventure, passion, a rebel, a flirt, a hot temper",
 				 "Arrogance, jealousy, abuse, recklessness, a braggart");
-		addCard(card76);
+		addCard("c75", card76);
 		
-		Card card77 = new Card("Queen of Wands",
+		Card card77 = new Card("c76",
+				 "Queen of Wands",
 				 "Minor Arcana-Wands",
 				 "Optimism, independence, confidence, passion, verve",
 				 "Jealousy, spite, avarice, destruction, demands");
-		addCard(card77);
+		addCard("c76", card77);
 		
-		Card card78 = new Card("King of Wands",
+		Card card78 = new Card("c77",
+				 "King of Wands",
 				 "Minor Arcana-Wands",
 				 "Honesty, passion, leadership, charm, flexibility",
 				 "Tyranny, a lack of harmony, weakness, volatility");
-		addCard(card78);
+		addCard("c77", card78);
 		
 		return cardMap.values();
 	}
@@ -724,6 +802,11 @@ public class MapSpreadRepository implements SpreadRepository{
 	public void addCard(Card c) {
 		String id = "c" + indexC++;
 		c.setId(id);
+		cardMap.put(id, c);
+	}
+	
+	@Override
+	public void addCard(String id, Card c) {
 		cardMap.put(id, c);
 	}
 	
