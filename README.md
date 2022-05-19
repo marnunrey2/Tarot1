@@ -15,6 +15,7 @@ The API REST is formed by 4 resources that allow us to make a card spread with b
 | GET | /cards/{id}  |  Return the card with id=CardId. If it does not exist it returns “404 Not Found”. |
 | GET | /cards/dailyCard  |  Returns the card of the day, so we have the card that would be predicting our day. |
 | POST | /cards| Add a new card, whose attributes have to be specified in the body of type JSON (not the id which is automatically generated). To add a card a password is needed bacause it is not intended for a non-admin user to create traditional tarot cards . If it is correctly added, it returns “201 Created” with a reference to the URI and the new Card body|
+| POST | /cards/restore| Restores the cards to the original ones of the Tatot . If it is correctly restored, it returns “204 No Content” since we re-created all the cards again|
 | PUT | /cards  | Updates the card with the attributes specified in the JSON body (card id must be included). To update a card a password is needed bacause is is not intended for a non-admin user to update traditional tarot cards . If the card does not exists the response returns “404 Not Found”. If it is corrected done it returns “204 No Content”. |
 | DELETE | /cards/{id}  |  Deletes the card with the same id. If the card does not exist it returns “404 Not Found”. If the card is correctly deleted it returns “204 No Content”.|
 
@@ -39,7 +40,7 @@ Each **card** has an id, name, suit, upright description and reversed descriptio
 | GET | /spreads/{id}/CardsOfSpread | Returns the cards of the spread with the specified id|
 | GET | /spreads/{id}/CustomCardsOfSpread | Returns the custom cards of the spread with the specified id|
 | POST | /spreads | Adds a new spread. The body of the JSON has to receive the name, type, description and number of cards(the id is automatically generated). If it is correctly done it returns “201 Created” with the URI reference and the new spread body |
-| PUT | /spreads | Update the spread with the attributes specified in the JSON body (it must include the id of the spread).  If it does not exists it returns “404 Not Found”. If it is correctly updated it returns “204 No Content”. |
+| PUT | /spreads | Update the spread with the attributes specified in the JSON body (it must include the id of the spread). If it does not exists it returns “404 Not Found”. If it is correctly updated it returns “204 No Content”. |
 | DELETE | /spreads/{id} | Deletes the spread with the specified id. If the spread does not exists is returns “404 Not Found”. If it is correctly done it returns “204 No Content”. |
 
 
