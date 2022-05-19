@@ -22,9 +22,12 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Response.ResponseBuilder;
+import javax.ws.rs.WebApplicationException;
 
 import org.jboss.resteasy.spi.BadRequestException;
+import org.jboss.resteasy.spi.MethodNotAllowedException;
 import org.jboss.resteasy.spi.NotFoundException;
+import org.jboss.resteasy.spi.UnauthorizedException;
 
 import aiss.api.resources.comparators.ComparatorName;
 import aiss.api.resources.comparators.ComparatorNameReversed;
@@ -71,7 +74,7 @@ public class CardResource {
             	}
             }
             if (name != null && suit != null) {
-            	throw new NotFoundException("Use one parameter only");	
+            	throw new MethodNotAllowedException("Use one parameter only");	
             }
         }
         
@@ -160,25 +163,25 @@ public class CardResource {
 			return response;
 		}
 		else {
-			throw new BadRequestException("You are not authorized to access this operation");
+			throw new WebApplicationException(Response.status(403).entity("You are not authorized to access this operation").build()); 
 		}
 	}
-	
+
 	@POST
     @Path("/restore")
     @Produces("application/json")
     public Response reset(@QueryParam("key") String key) 
-	{
-		Response response = Response.noContent().build();
+    {
+        Response response = Response.noContent().build();
         if (key!=null) {
-        	if (key.equals("propensos")) {
-        		getInstance();
+            if (key.equals("propensos")) {
+                MapSpreadRepository.getInstance().resetCards();
             } else {
-				throw new BadRequestException("Wrong password");
-			}
-        	return response;
+                throw new BadRequestException("Wrong password");
+            }
+            return response;
         } else {
-            throw new BadRequestException("You are not authorized to access this operation");
+        	throw new WebApplicationException(Response.status(403).entity("You are not authorized to access this operation").build());
         }
     }
 	
@@ -218,7 +221,7 @@ public class CardResource {
 				throw new BadRequestException("Wrong password");
 			}
 		} else {
-			throw new BadRequestException("You are not authorized to access this operation");
+			throw new WebApplicationException(Response.status(403).entity("You are not authorized to access this operation").build());
 		}
 		return Response.noContent().build();
 	}
@@ -239,7 +242,7 @@ public class CardResource {
 				throw new BadRequestException("Wrong password");
 			}			
 		} else {
-			throw new BadRequestException("You are not authorized to access this operation");
+			throw new WebApplicationException(Response.status(403).entity("You are not authorized to access this operation").build()); 
 		}
 		return Response.noContent().build();
 	}
