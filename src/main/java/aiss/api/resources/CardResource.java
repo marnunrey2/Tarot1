@@ -27,7 +27,6 @@ import javax.ws.rs.WebApplicationException;
 import org.jboss.resteasy.spi.BadRequestException;
 import org.jboss.resteasy.spi.MethodNotAllowedException;
 import org.jboss.resteasy.spi.NotFoundException;
-import org.jboss.resteasy.spi.UnauthorizedException;
 
 import aiss.api.resources.comparators.ComparatorName;
 import aiss.api.resources.comparators.ComparatorNameReversed;
